@@ -28,6 +28,26 @@ home screen and continue scrolling.
 
 That's Scroll. 
 
+## FAQ
+
+### What content will the app expose?
+
+The text of the Holy Bible (ideally with many translations), cross references,
+interlinear Bible, Greek/Hebrew concordance.
+
+### Will there be a social/sharing aspect to the app?
+
+No. Although it is inspired by a social media news feed, the content we're
+scrolling through in the app is from the Bible, not from our friends. 
+
+### Are you planning on commercializing this?
+
+No, I don't have time or room in my current employment contract for that. Three
+end states that I can see are (1) abandon the project, or (2) the prototype is
+useful for a few friends, or (3) the prototype is interesting enough that we can
+pitch it to an organization like Blue Letter Bible and have them take over
+operating and developing the app.
+
 ## Technical Decisions
 
 Refer to [./doc/architecture](./doc/architecture) for the architectural decision

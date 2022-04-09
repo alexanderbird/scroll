@@ -35,6 +35,26 @@ That's Scroll.
 The text of the Holy Bible (ideally with many translations), cross references,
 interlinear Bible, Greek/Hebrew concordance.
 
+On the home screen you'll see random Bible verses from all parts of the Bible.
+As you scroll, you can select a verse and drill down in a few different ways:
+ - read it in context (verses before and after it)
+ - read related verses (cross references for the passage)
+ - see the interlinear Bible (the verse is expanded into one or two words per
+   line, and one Greek/Hebrew word per line)
+     - from a Greek/Hebrew word, you'll see a quick summary of how it's used in
+       the Bible, a list of different English words that it's translated into in
+       the Bible, and then the list of verses that it is included in in the
+       Bible.
+     - maybe from the Greek/Hebrew word you can browse to related words (root
+       word, or following words in the concordance)
+
+Any time a Bible verse is displayed you have the same controls as on the home
+page: you can navigate from that verse to related verses as described above.
+
+It's important that the navigation is effortless. The experience of navigating
+through the passages should be almost subconscious -- a single scroll or click
+gesture with no thought to the navigation. 
+
 ### Will there be a social/sharing aspect to the app?
 
 No. Although it is inspired by a social media news feed, the content we're

@@ -1,6 +1,6 @@
 # Scroll
 
-A Bible App
+An immersive Bible exploration app
 
 ## Purpose
 

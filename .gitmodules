@@ -1,0 +1,9 @@
+[submodule "data"]
+	path = data
+	url = git@github.com:alexanderbird/scroll-data.git
+[submodule "api-sdk"]
+	path = api-sdk
+	url = git@github.com:alexanderbird/scroll-api-sdk.git
+[submodule "api-test"]
+	path = api-test
+	url = git@github.com:alexanderbird/scroll-api-test.git

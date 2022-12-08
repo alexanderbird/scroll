@@ -2,6 +2,8 @@
 
 An immersive Bible exploration app
 
+For the developer guide, refer to [./doc/DEVELOPER_GUIDE.md](./doc/DEVELOPER_GUIDE.md).
+
 ## Purpose
 
 There is a lot wrong with social media. However, one thing that social media

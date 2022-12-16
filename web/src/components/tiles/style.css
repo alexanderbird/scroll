@@ -1,0 +1,28 @@
+.tiles {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.tile {
+  border-radius: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+.tile:hover {
+  background-color: #0082;
+}
+
+.tileText {
+  display: inline;
+}
+
+.tileReference {
+  font-size: 0.8rem;
+  color: #0008;
+  display: inline;
+  padding-right: 1rem;
+}

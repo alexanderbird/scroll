@@ -1,6 +1,8 @@
 # Scroll
 
-An immersive Bible exploration app
+An immersive Bible exploration app (currently in early development).
+
+Preview at https://scroll-bible.netlify.app [![Netlify Status](https://api.netlify.com/api/v1/badges/603dde55-9275-4a40-915b-5fcc52beb6a4/deploy-status)](https://app.netlify.com/sites/scroll-bible/deploys)
 
 For the developer guide, refer to [./doc/DEVELOPER_GUIDE.md](./doc/DEVELOPER_GUIDE.md).
 

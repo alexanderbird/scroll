@@ -5,17 +5,16 @@ import Header from './header';
 
 // Code-splitting is automated for `routes` directory
 import Home from '../routes/home';
-import Profile from '../routes/profile';
+import Verse from '../routes/verse';
 
 const App = () => (
-	<div id="app">
-		<Header />
-		<Router>
-			<Home path="/" />
-			<Profile path="/profile/" user="me" />
-			<Profile path="/profile/:user" />
-		</Router>
-	</div>
+  <div id="app">
+    <Header />
+    <Router>
+      <Home path="/" />
+      <Verse path="/v/:id/:content" />
+    </Router>
+  </div>
 )
 
 export default App;

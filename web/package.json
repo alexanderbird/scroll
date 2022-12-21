@@ -3,6 +3,9 @@
   "name": "scroll",
   "version": "0.0.0",
   "license": "MIT",
+  "content": {
+    "readmeUrl": "https://github.com/alexanderbird/scroll/blob/main/README.md"
+  },
   "scripts": {
     "build": "preact build",
     "serve": "sirv build --port 8080 --cors --single",

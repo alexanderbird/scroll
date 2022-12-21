@@ -12,6 +12,11 @@
   padding: 5px;
 }
 
+.tileSelected {
+  font-weight: bold;
+  border: 1px solid #008;
+}
+
 .tile:hover {
   background-color: #0082;
 }
@@ -25,4 +30,8 @@
   color: #0008;
   display: inline;
   padding-right: 1rem;
+}
+
+.tile.tileSelected .tileReference {
+  font-size: inherit;
 }

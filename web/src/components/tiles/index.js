@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import { Link } from 'preact-router/match';
 import style from './style.css';
+import { serialize } from '../../data-transformations/verse';
 
 export const Tiles = ({ items }) => (
   <ul class={style.tiles}>
@@ -8,9 +9,16 @@ export const Tiles = ({ items }) => (
   </ul>
 );
 
-const Tile = ({ text, reference, related }) => (
-  <div class={style.tile}>
-    <div class={style.tileReference}>{reference}</div>
-    <div class={style.tileText}>{text}</div>
-  </div>
-);
+const Tile = (verse) => {
+  const { text, reference, related, id, selected } = verse;
+  const classes = [style.tile, 'reset']
+  if (verse.selected) {
+    classes.push(style.tileSelected);
+  }
+  return (
+    <Link class={classes.join(' ')} href={`/v/${id}/${serialize(verse)}`}>
+      <div class={style.tileReference}>{reference}</div>
+      <div class={style.tileText}>{text}</div>
+    </Link>
+  );
+}

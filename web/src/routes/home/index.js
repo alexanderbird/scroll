@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
-import style from './style.css';
 import { buildClient, defaultTimeProvider } from 'scroll-api-sdk';
+import style from './style.css';
 import { Tiles } from '../../components/tiles';
 
 const Home = () => {

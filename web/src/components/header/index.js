@@ -1,16 +1,16 @@
 import { h } from 'preact';
 import { Link } from 'preact-router/match';
 import style from './style.css';
+import packageJson from '../../../package.json';
+const { readmeUrl } = packageJson.content;
 
 const Header = () => (
-	<header class={style.header}>
-		<h1>Preact App</h1>
-		<nav>
-			<Link activeClassName={style.active} href="/">Home</Link>
-			<Link activeClassName={style.active} href="/profile">Me</Link>
-			<Link activeClassName={style.active} href="/profile/john">John</Link>
-		</nav>
-	</header>
+  <header class={style.header}>
+    <Link activeClassName={style.active} href="/"><h1>Scroll</h1></Link>
+    <nav>
+      <a activeClassName={style.active} href={readmeUrl}>About</a>
+    </nav>
+  </header>
 );
 
 export default Header;

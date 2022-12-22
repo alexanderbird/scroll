@@ -7,3 +7,6 @@
 [submodule "api-test"]
 	path = api-test
 	url = https://github.com/alexanderbird/scroll-api-test.git
+[submodule "infrastructure"]
+	path = infrastructure
+	url = https://github.com/alexanderbird/scroll-infrastructure.git

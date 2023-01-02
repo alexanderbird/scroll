@@ -1,13 +1,13 @@
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
-import { buildClient, defaultTimeProvider } from 'scroll-api-sdk';
+import { buildClient, defaultTimeProvider, wrapFetch } from 'scroll-api-sdk';
 import style from './style.css';
 import { Tiles } from '../../components/tiles';
 
 const Home = () => {
   const [ verses, setVerses ] = useState(null);
   useEffect(async () => {
-    const client = buildClient({ timeProvider: defaultTimeProvider });
+    const client = buildClient({ timeProvider: defaultTimeProvider, httpGet: wrapFetch(fetch), log: console.info });
     const pageSize = 50;
     const result = await client.getFeedItems({ pageSize });
     setVerses(result.verses);

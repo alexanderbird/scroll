@@ -3,6 +3,7 @@ import { useState, useEffect } from 'preact/hooks';
 import { buildClient, defaultTimeProvider, wrapFetch } from 'scroll-api-sdk';
 import style from './style.css';
 import { Tiles } from '../../components/tiles';
+import { Loading } from '../../components/loading';
 
 const Home = () => {
   const [ verses, setVerses ] = useState(null);
@@ -20,7 +21,7 @@ const Home = () => {
     <div class={style.home}>
       { verses 
         ? <Tiles items={verses} />
-        : <p>loading</p>
+        : <Loading/>
       }
     </div>
   );

@@ -9,6 +9,7 @@ import { deserialize } from '../../data-transformations/verse';
 const Verse = ({ id, content }) => {
   const thisVerse = deserialize(content);
   const [ areThereMoreVerses, setAreThereMoreVerses ] = useState(false);
+  const [ areThereMorePreviousVerses, setAreThereMorePreviousVerses ] = useState(false);
   const [ isLoadingPreviousVerses, setIsLoadingPreviousVerses ] = useState(true);
   const [ isLoadingNextVerses, setIsLoadingNextVerses ] = useState(true);
   const [ previousVerses, setPreviousVerses ] = useState([]);
@@ -24,6 +25,7 @@ const Verse = ({ id, content }) => {
       idPrefix: thisVerse.id.split('-').slice(0, 2).join('-'),
       startingId: thisVerse.id,
     });
+    setAreThereMorePreviousVerses(!!result.nextPage);
     setIsLoadingPreviousVerses(false);
     setPreviousVerses(result.verses.reverse());
   }, [id]);
@@ -58,16 +60,37 @@ const Verse = ({ id, content }) => {
     setNextVerses(x => [...x, ...result.verses]);
   }
 
+  const addAnotherPreviousPage = async () => {
+    if (isLoadingNextVerses) {
+      return;
+    }
+    setIsLoadingPreviousVerses(true);
+    const result = await client.getVersesInCanonicalOrder({
+      pageSize: 5,
+      direction: 'REVERSE',
+      idPrefix: thisVerse.id.split('-').slice(0, 2).join('-'),
+      startingId: previousVerses[0].id,
+    });
+    setAreThereMorePreviousVerses(!!result.nextPage);
+    setIsLoadingPreviousVerses(false);
+    setPreviousVerses(x => [...result.verses.reverse(), ...x ]);
+  }
+
   const verses = [...previousVerses, { selected: true, ...thisVerse }, ...nextVerses];
 
   return (
     <div class={style.verse}>
+      { !isLoadingPreviousVerses && areThereMorePreviousVerses ? (
+        <div class={style.buttonBar}>
+          <button onClick={addAnotherPreviousPage}>⬆<br/>more</button>
+        </div>
+      ) : null }
       { isLoadingPreviousVerses ? <Loading /> : null }
       <Tiles items={verses} />
       { isLoadingNextVerses ? <Loading /> : null }
       { !isLoadingNextVerses && areThereMoreVerses ? (
         <div class={style.buttonBar}>
-          <button onClick={addAnotherPage}>➕ more</button>
+          <button onClick={addAnotherPage}>more<br/>⬇</button>
         </div>
       ) : null }
     </div>

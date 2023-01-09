@@ -11,5 +11,6 @@
 }
 
 .buttonBar button {
+  font-size: 0.6em;
   margin: auto;
 }

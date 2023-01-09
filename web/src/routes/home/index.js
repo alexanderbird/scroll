@@ -36,7 +36,7 @@ const Home = () => {
       <Tiles items={verses} />
       { isLoadingNextVerses ? <Loading/> : (
         <div class={style.buttonBar}>
-          <button onClick={addAnotherPage}>➕ more</button>
+          <button onClick={addAnotherPage}>more<br/>⬇</button>
         </div>
       ) }
     </div>

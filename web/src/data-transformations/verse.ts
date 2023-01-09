@@ -1,7 +1,7 @@
 import { Verse } from 'api-sdk/glossary/Verse';
 
 export function serialize(verse: Verse): string {
-  const json = JSON.stringify(verse);
+  const json = JSON.stringify({ ...verse, selected: undefined });
   try {
     return btoa(encodeURIComponent(json));
   } catch(e) {

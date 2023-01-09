@@ -25,6 +25,25 @@
   display: inline;
 }
 
+.tileStrongs {
+  display: inline;
+}
+
+.tileStrongs a {
+  color: inherit;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.tileStrongs a:hover {
+  background-color: #ff04;
+}
+
+.selectedWord {
+  background-color: #ff04;
+  font-weight: bold;
+}
+
 .tileReference {
   font-size: 0.8rem;
   color: #0008;
@@ -35,3 +54,4 @@
 .tile.tileSelected .tileReference {
   font-size: inherit;
 }
+

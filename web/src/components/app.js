@@ -6,6 +6,7 @@ import Header from './header';
 // Code-splitting is automated for `routes` directory
 import Home from '../routes/home';
 import Verse from '../routes/verse';
+import Word from '../routes/word';
 import License from '../routes/license';
 
 const App = () => (
@@ -15,6 +16,7 @@ const App = () => (
       <Home path="/" />
       <License path="/about/license" />
       <Verse path="/v/:id/:content" />
+      <Word path="/word/:id/:verseContent" />
     </Router>
   </div>
 )

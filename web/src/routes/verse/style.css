@@ -3,3 +3,13 @@
   min-height: 100%;
   width: 100%;
 }
+
+.buttonBar {
+  display: flex;
+  flex-direction: row;
+  justify-items: space-around;
+}
+
+.buttonBar button {
+  margin: auto;
+}

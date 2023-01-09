@@ -8,6 +8,7 @@ import { deserialize } from '../../data-transformations/verse';
 
 const Verse = ({ id, content }) => {
   const thisVerse = deserialize(content);
+  const [ areThereMoreVerses, setAreThereMoreVerses ] = useState(false);
   const [ isLoadingPreviousVerses, setIsLoadingPreviousVerses ] = useState(true);
   const [ isLoadingNextVerses, setIsLoadingNextVerses ] = useState(true);
   const [ previousVerses, setPreviousVerses ] = useState([]);
@@ -36,9 +37,26 @@ const Verse = ({ id, content }) => {
       idPrefix: thisVerse.id.split('-').slice(0, 2).join('-'),
       startingId: thisVerse.id,
     });
+    setAreThereMoreVerses(!!result.nextPage);
     setIsLoadingNextVerses(false);
     setNextVerses(result.verses);
   }, [id]);
+
+  const addAnotherPage = async () => {
+    if (isLoadingNextVerses) {
+      return;
+    }
+    setIsLoadingNextVerses(true);
+    const result = await client.getVersesInCanonicalOrder({
+      pageSize: 15,
+      direction: 'FORWARD',
+      idPrefix: thisVerse.id.split('-').slice(0, 2).join('-'),
+      startingId: nextVerses[nextVerses.length - 1].id,
+    });
+    setAreThereMoreVerses(!!result.nextPage);
+    setIsLoadingNextVerses(false);
+    setNextVerses(x => [...x, ...result.verses]);
+  }
 
   const verses = [...previousVerses, { selected: true, ...thisVerse }, ...nextVerses];
 
@@ -47,6 +65,11 @@ const Verse = ({ id, content }) => {
       { isLoadingPreviousVerses ? <Loading /> : null }
       <Tiles items={verses} />
       { isLoadingNextVerses ? <Loading /> : null }
+      { !isLoadingNextVerses && areThereMoreVerses ? (
+        <div class={style.buttonBar}>
+          <button onClick={addAnotherPage}>➕ more</button>
+        </div>
+      ) : null }
     </div>
   );
 }

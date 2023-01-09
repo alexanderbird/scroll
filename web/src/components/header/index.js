@@ -6,8 +6,9 @@ const { readmeUrl } = packageJson.content;
 
 const Header = () => (
   <header class={style.header}>
-    <Link activeClassName={style.active} href="/"><h1>Scroll</h1></Link>
+    <Link activeClassName={style.active} href="/"><h1>Scroll Bible</h1></Link>
     <nav>
+      <Link activeClassName={style.active} href="/about/license">License</Link>
       <a activeClassName={style.active} href={readmeUrl}>About</a>
     </nav>
   </header>

@@ -7,3 +7,6 @@
 [submodule "infrastructure"]
 	path = infrastructure
 	url = https://github.com/alexanderbird/scroll-infrastructure.git
+[submodule "core"]
+	path = core
+	url = https://github.com/alexanderbird/scroll-core.git

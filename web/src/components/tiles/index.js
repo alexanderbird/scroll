@@ -10,7 +10,7 @@ export const Tiles = ({ items, selectedWord }) => (
 );
 
 const VerseSegment = ({ segment, verseContent }) => (
-  <Link href={`/word/${segment.s}/${verseContent}`} title={segment.s}>{segment.t} </Link>
+  <Link class={style.verseSegment} href={`/word/${segment.s}/${verseContent}`} title={segment.s}>{segment.t}</Link>
 );
 
 const Tile = ({ selectedWord, verse }) => {

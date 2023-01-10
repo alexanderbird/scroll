@@ -20,7 +20,7 @@ const Verse = ({ id, content }) => {
     setIsLoadingPreviousVerses(true);
     setPreviousVerses([]);
     const result = await client.getVersesInCanonicalOrder({
-      pageSize: 5,
+      pageSize: 1,
       direction: 'REVERSE',
       idPrefix: thisVerse.id.split('-').slice(0, 2).join('-'),
       startingId: thisVerse.id,

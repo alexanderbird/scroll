@@ -8,7 +8,7 @@ import { deserialize } from '../../data-transformations/verse';
 import { useRelatedVerses } from '../../hooks/useRelatedVerses';
 
 const Word = ({ id, verseContent }) => {
-  const contextVerse = deserialize(verseContent);
+  const contextVerse = verseContent ? deserialize(verseContent) : false;
   const [strongsEntry, setStrongsEntry] = useState({ data: "Strongs " + id + " (loading)", type: "TEXT", related: "" });
   const client = buildClient({ timeProvider: defaultTimeProvider, httpGet: wrapFetch(fetch), log: console.info });
 
@@ -29,15 +29,13 @@ const Word = ({ id, verseContent }) => {
     setStrongsEntry(result);
   }, [id]);
 
-  const items = [
-    { ...contextVerse },
-    { ...strongsEntry, contextVerse, selected: true },
-    ...relatedVerses
-  ];
+  const backgroundItems = contextVerse ? [{ ... contextVerse }] : [];
+  backgroundItems.push({ ...strongsEntry, contextVerse, selected: true });
+  const items = [ ...backgroundItems, ...relatedVerses ];
   return (
     <div class={style.word}>
       <br/>
-      <h3>Strong's {id} {strongsEntry.data.original ? `(${strongsEntry.data.original})` : ''}</h3>
+      <h3>Strong's {id} {strongsEntry.data.transliteration ? `(${strongsEntry.data.transliteration})` : ''}</h3>
       <Tiles selectedWord={id} items={items} />
       { isLoadingRelatedVerses ? <Loading /> : null }
       { !canLoadMoreRelatedVerses ? null : (

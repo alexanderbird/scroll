@@ -19,6 +19,7 @@ const App = () => (
       <Verse path="/v/:id/:content" />
       <Related path="/related/:id/:content" />
       <Word path="/word/:id/:verseContent" />
+      <Word path="/word/:id" />
     </Router>
   </div>
 )

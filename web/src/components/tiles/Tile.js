@@ -34,13 +34,16 @@ export const Tile = ({ selectedWord, verse }) => {
   }
   if (type === "STRONGS_ENTRY") {
     const contextVerse = verse ? verse.contextVerse : false;
-    console.log({ contextVerse, isContextVerse: !!contextVerse })
     const language = id.substring(0) === 'H' ? 'Hebrew' : 'Greek';
+    const label = {
+      short: data.transliteration || data.original,
+      full: data.transliteration ? data.transliteration + " (" + data.original + ")" : data.original,
+    }
     const introduction = contextVerse && contextVerse.data
       ? (<span>
-          In {contextVerse.reference}, <em>"{ contextVerse.data.filter(x => x.s === id)[0].t }"</em> is translated from the {language} word {data.transliteration} ({data.original})
+          In {contextVerse.reference}, <em>"{ contextVerse.data.filter(x => x.s === id)[0].t }"</em> is translated from the {language} word {label.full}
         </span>)
-      : <span>The {language} word {data.transliteration} ({data.original})</span>;
+      : <span>The {language} word {label.full}</span>;
     const countOfRelated = related
       ? contextVerse ? related.split(',').length - 1 : related.split(',').length
       : 0;
@@ -55,15 +58,15 @@ export const Tile = ({ selectedWord, verse }) => {
           ? "is 1 " + (contextVerse ? "other " : "") + "verse that includes"
           : "are " + countOfRelated + " " + (contextVerse ? "other " : "") + "verses that include"
         } {data.original}.</p>
-        <StrongsDerivation {...data} contextVerse={serialize(contextVerse)} />
+        <StrongsDerivation {...data} label={label} contextVerse={serialize(contextVerse)} />
       </div>
     );
   }
   throw new Error("Unsupported tile type " + type);
 }
 
-const StrongsDerivation = ({ transliteration, derivation, contextVerse}) => {
-  const upperCaseTransliteration = transliteration.slice(0, 1).toUpperCase() + transliteration.slice(1);
+const StrongsDerivation = ({ transliteration, derivation, contextVerse, label}) => {
+  const upperCaseTransliteration = label.short.slice(0, 1).toUpperCase() + label.short.slice(1);
   const relatedWordIds = derivation.match(/([GH][0-9]+)/g);
   if (!relatedWordIds) return <p>{derivation}</p>;
   const relatedWordIdsPattern = new RegExp("(" + relatedWordIds.join("|") +")");

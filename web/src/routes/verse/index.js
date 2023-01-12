@@ -76,16 +76,22 @@ const Verse = ({ id, content }) => {
     setPreviousVerses(x => [...result.verses.reverse(), ...x ]);
   }
 
-  const relatedText = count => count === 1
+  const countOfRelated = thisVerse.related.split(",").filter(x => !!x).length;
+  const relatedText = countOfRelated === 1
     ? "There is 1 other verse related to"
-    : "There are " + count + " other verses related to";
+    : "There are " + countOfRelated + " other verses related to";
 
-  const verses = [
+  const firstItems = [
     ...previousVerses,
     { selected: true, ...thisVerse },
-    { type: "LINK", data: { href: `/related/${thisVerse.id}/${content}`, text: relatedText(thisVerse.related.split(",").filter(x => !!x).length) + " " + thisVerse.reference + ". ➡" } },
-    ...nextVerses
-  ];
+  ]
+  if (countOfRelated > 0) {
+    firstItems.push({
+      type: "LINK",
+      data: { href: `/related/${thisVerse.id}/${content}`, text: relatedText + " " + thisVerse.reference + ". ➡" }
+    });
+  }
+  const verses = [ ...firstItems, ...nextVerses ];
 
   return (
     <div class={style.verse}>

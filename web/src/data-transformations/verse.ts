@@ -10,6 +10,11 @@ export function serialize(verse: Verse): string {
 }
 
 export function deserialize(text: string): Verse {
-  const json = decodeURIComponent(atob(text));
-  return JSON.parse(json);
+  try {
+    const encoded = atob(text);
+    const json = decodeURIComponent(encoded);
+    return JSON.parse(json);
+  } catch(e) {
+    throw new Error("Failed to deserialize. '" + text + "'\n" + e);
+  }
 }

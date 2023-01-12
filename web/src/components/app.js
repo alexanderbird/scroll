@@ -7,6 +7,7 @@ import Header from './header';
 import Home from '../routes/home';
 import Verse from '../routes/verse';
 import Word from '../routes/word';
+import Related from '../routes/related';
 import License from '../routes/license';
 
 const App = () => (
@@ -16,6 +17,7 @@ const App = () => (
       <Home path="/" />
       <License path="/about/license" />
       <Verse path="/v/:id/:content" />
+      <Related path="/related/:id/:content" />
       <Word path="/word/:id/:verseContent" />
     </Router>
   </div>

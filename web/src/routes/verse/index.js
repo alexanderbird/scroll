@@ -76,10 +76,20 @@ const Verse = ({ id, content }) => {
     setPreviousVerses(x => [...result.verses.reverse(), ...x ]);
   }
 
-  const verses = [...previousVerses, { selected: true, ...thisVerse }, ...nextVerses];
+  const relatedText = count => count === 1
+    ? "There is 1 other verse related to"
+    : "There are " + count + " other verses related to";
+
+  const verses = [
+    ...previousVerses,
+    { selected: true, ...thisVerse },
+    { type: "LINK", data: { href: `/related/${thisVerse.id}/${content}`, text: relatedText(thisVerse.related.split(",").length) + " " + thisVerse.reference + ". ➡" } },
+    ...nextVerses
+  ];
 
   return (
     <div class={style.verse}>
+      <h3>{ thisVerse.reference.replace(/:.*$/, '')} </h3>
       { !isLoadingPreviousVerses && areThereMorePreviousVerses ? (
         <div class={style.buttonBar}>
           <button onClick={addAnotherPreviousPage}>⬆<br/>more</button>

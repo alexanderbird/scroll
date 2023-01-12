@@ -1,0 +1,16 @@
+.word {
+  padding: 56px 20px;
+  min-height: 100%;
+  width: 100%;
+}
+
+.buttonBar {
+  display: flex;
+  flex-direction: row;
+  justify-items: space-around;
+}
+
+.buttonBar button {
+  font-size: 0.6em;
+  margin: auto;
+}

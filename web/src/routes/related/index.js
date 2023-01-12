@@ -7,9 +7,8 @@ import style from './style.css';
 import { deserialize } from '../../data-transformations/verse';
 import { useRelatedVerses } from '../../hooks/useRelatedVerses';
 
-const Word = ({ id, verseContent }) => {
-  const contextVerse = deserialize(verseContent);
-  const [strongsEntry, setStrongsEntry] = useState({ data: "Strongs " + id + " (loading)", type: "TEXT", related: "" });
+const Related = ({ id, content }) => {
+  const verse = deserialize(content);
   const client = buildClient({ timeProvider: defaultTimeProvider, httpGet: wrapFetch(fetch), log: console.info });
 
   const {
@@ -17,27 +16,16 @@ const Word = ({ id, verseContent }) => {
     relatedVerses,
     canLoadNextPage: canLoadMoreRelatedVerses,
     loadNextPage: loadNextPageOfRelatedVerses
-  } = useRelatedVerses({ client, ids: strongsEntry.related });
-
-  useEffect(async () => {
-    const result = await client.getItem({
-      id,
-      language: 'en',
-      translation: 'strongs',
-      document: 'reference',
-    });
-    setStrongsEntry(result);
-  }, [id]);
+  } = useRelatedVerses({ client, ids: verse.related });
 
   const items = [
-    { ...contextVerse },
-    { ...strongsEntry, contextVerse, selected: true },
+    { ...verse, selected: true },
     ...relatedVerses
   ];
   return (
     <div class={style.word}>
       <br/>
-      <h3>Strong's {id} {strongsEntry.data.original ? `(${strongsEntry.data.original})` : ''}</h3>
+      <h3>Verses related to {id}</h3>
       <Tiles selectedWord={id} items={items} />
       { isLoadingRelatedVerses ? <Loading /> : null }
       { !canLoadMoreRelatedVerses ? null : (
@@ -49,4 +37,4 @@ const Word = ({ id, verseContent }) => {
   );
 }
 
-export default Word;
+export default Related;

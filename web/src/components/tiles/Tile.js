@@ -26,6 +26,9 @@ export const Tile = ({ selectedWord, verse }) => {
       </Link>
     );
   }
+  if (type === "LINK") {
+    return <Link class={classes.join(' ')} href={data.href}>{data.text}</Link>;
+  }
   if (type === "TEXT") {
     return <p class={classes.join(' ')}>{data}</p>;
   }

@@ -11,6 +11,10 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h3 {
+  text-align: center;
+}
+
 * {
   box-sizing: border-box;
 }

@@ -25,7 +25,7 @@ const Related = ({ id, content }) => {
   return (
     <div class={style.word}>
       <br/>
-      <h3>Verses related to {id}</h3>
+      <h3>Verses related to {verse.reference}</h3>
       <Tiles selectedWord={id} items={items} />
       { isLoadingRelatedVerses ? <Loading /> : null }
       { !canLoadMoreRelatedVerses ? null : (

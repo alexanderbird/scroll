@@ -83,7 +83,7 @@ const Verse = ({ id, content }) => {
   const verses = [
     ...previousVerses,
     { selected: true, ...thisVerse },
-    { type: "LINK", data: { href: `/related/${thisVerse.id}/${content}`, text: relatedText(thisVerse.related.split(",").length) + " " + thisVerse.reference + ". ➡" } },
+    { type: "LINK", data: { href: `/related/${thisVerse.id}/${content}`, text: relatedText(thisVerse.related.split(",").filter(x => !!x).length) + " " + thisVerse.reference + ". ➡" } },
     ...nextVerses
   ];
 

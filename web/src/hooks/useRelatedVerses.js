@@ -28,6 +28,7 @@ export function useRelatedVerses({ client, ids }) {
   }
 
   useEffect(async () => {
+    setRelatedVerses([]);
     const [firstPage, ...newRemainingPages] = splitIdsIntoPages(ids, 25);
     if (!firstPage) { return; }
     setRemainingPages(newRemainingPages);

@@ -26,7 +26,7 @@ export const Tile = ({ selectedWord, verse, doShowRelated }) => {
   }
   if (type === "STRONGS_ENTRY") {
     const contextVerse = verse ? verse.contextVerse : false;
-    const language = id.substring(0) === 'H' ? 'Hebrew' : 'Greek';
+    const language = id[0] === 'H' ? 'Hebrew' : 'Greek';
     const label = {
       short: data.transliteration || data.original,
       full: data.transliteration ? data.transliteration + " (" + data.original + ")" : data.original,

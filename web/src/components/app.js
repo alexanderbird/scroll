@@ -2,6 +2,7 @@ import { h } from 'preact';
 import { Router } from 'preact-router';
 
 import Header from './header';
+import Footer from './footer';
 
 // Code-splitting is automated for `routes` directory
 import Home from '../routes/home';
@@ -21,6 +22,7 @@ const App = () => (
       <Word path="/word/:id/:verseContent" />
       <Word path="/word/:id" />
     </Router>
+    <Footer />
   </div>
 )
 

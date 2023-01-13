@@ -1,6 +1,6 @@
 {
-  "name": "scroll",
-  "short_name": "scroll",
+  "name": "Scroll Bible",
+  "short_name": "ScrollBible",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

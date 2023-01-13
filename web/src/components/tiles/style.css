@@ -4,12 +4,14 @@
   flex-direction: column;
   max-width: 1000px;
   margin: 0 auto;
+  padding-left: 0;
 }
 
 .tile {
   border-radius: 5px;
   margin-bottom: 5px;
   padding: 5px;
+  overflow-wrap: normal;
 }
 
 .tileSelected {
@@ -17,7 +19,7 @@
   border: 1px solid #008;
 }
 
-.tile:hover {
+.tile:not(.tileSelected):hover {
   background-color: #0082;
 }
 
@@ -52,14 +54,19 @@
   padding-right: 1rem;
 }
 
-.tile.tileSelected .tileReference {
-  font-size: inherit;
-}
-
-
 .verseSegment {
   background-color: #8882;
-  padding-left: 3px;
-  padding-right: 3px;
-  margin-right: 6px;
+}
+
+.relatedLink {
+  margin-top: 12px;
+  text-align: right;
+  font-weight: normal;
+}
+.relatedLink a {
+  text-decoration: none;
+  color: inherit;
+}
+.relatedLink a:hover {
+  background-color: #ff04;
 }

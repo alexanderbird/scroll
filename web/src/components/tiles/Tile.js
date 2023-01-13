@@ -4,30 +4,22 @@ import style from './style.css';
 import { serialize } from '../../data-transformations/verse';
 
 const VerseSegment = ({ segment, verseContent }) => (
-  <Link class={style.verseSegment} href={`/word/${segment.s}/${verseContent}`} title={segment.s}>{segment.t}</Link>
+  <span>
+    <Link class={style.verseSegment} href={`/word/${segment.s}/${verseContent}`} title={segment.s}>{segment.t}</Link>
+    &ensp;
+  </span>
 );
 
-export const Tile = ({ selectedWord, verse }) => {
+export const Tile = ({ selectedWord, verse, doShowRelated }) => {
   const { type, data, reference, related, id, selected } = verse;
   const classes = [style.tile, 'reset']
   if (verse.selected) {
     classes.push(style.tileSelected);
   }
   if (type === "TEXT_WITH_STRONGS") {
-    return (
-      <Link class={classes.join(' ')} href={`/v/${id}/${serialize(verse)}`}>
-        <div class={style.tileReference}>{reference}</div>
-        { selected
-          ? <div class={style.tileStrongs}>{data.filter(x => !!x.t.trim()).map(segment => <VerseSegment segment={segment} verseContent={serialize(verse)} />)}</div>
-          : <div class={style.tileText}>{data.map(segment => (
-              <span class={segment.s === selectedWord ? style.selectedWord : ''}>{segment.t} </span>
-            ))}</div>
-        }
-      </Link>
-    );
-  }
-  if (type === "LINK") {
-    return <Link class={classes.join(' ')} href={data.href}>{data.text}</Link>;
+    return selected
+      ? <SelectedTextWithStrongs verse={verse} classes={classes} doShowRelated={doShowRelated} />
+      : <TextWithStrongs verse={verse} classes={classes} selectedWord={selectedWord}/>
   }
   if (type === "TEXT") {
     return <p class={classes.join(' ')}>{data}</p>;
@@ -54,11 +46,11 @@ export const Tile = ({ selectedWord, verse }) => {
           <span> which means something like:</span>
           <blockquote>{data.definition}</blockquote>
         </p>
+        <StrongsDerivation {...data} label={label} contextVerse={serialize(contextVerse)} />
         <p>There { countOfRelated === 1
           ? "is 1 " + (contextVerse ? "other " : "") + "verse that includes"
           : "are " + countOfRelated + " " + (contextVerse ? "other " : "") + "verses that include"
         } {data.original}.</p>
-        <StrongsDerivation {...data} label={label} contextVerse={serialize(contextVerse)} />
       </div>
     );
   }
@@ -81,3 +73,38 @@ const StrongsDerivation = ({ transliteration, derivation, contextVerse, label}) 
     </p>
   );
 }
+
+const SelectedTextWithStrongs = ({ classes, verse, doShowRelated }) => {
+  const { type, data, reference, related, id, selected } = verse;
+  const countOfRelated = related.split(",").filter(x => !!x).length;
+  const relatedText = countOfRelated === 1
+    ? "1 related verse ➡"
+    : `${countOfRelated} related verses ➡`;
+  const content = serialize(verse);
+  return (
+    <div class={classes.join(' ')}>
+      <div class={style.tileReference}>{reference}</div>
+      <div class={style.tileStrongs}>
+        { data.filter(x => !!x.t.trim()).map(segment => <VerseSegment segment={segment} verseContent={content} />) }
+      </div>
+      { !doShowRelated || countOfRelated < 1 ? null : (<div class={style.relatedLink}>
+        <Link href={`/related/${id}/${content}`}>{relatedText}</Link>
+      </div>)}
+    </div>
+  );
+}
+
+const TextWithStrongs = ({ classes, verse, selectedWord }) => {
+  const { type, data, reference, related, id, selected } = verse;
+  return (
+    <Link class={classes.join(' ')} href={`/v/${id}/${serialize(verse)}`}>
+      <div class={style.tileReference}>{reference}</div>
+        <div class={style.tileText}>
+          {data.map(segment => (
+            <span class={segment.s === selectedWord ? style.selectedWord : ''}>{segment.t} </span>
+          ))}
+        </div>
+    </Link>
+  );
+}
+  

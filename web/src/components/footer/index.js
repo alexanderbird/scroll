@@ -6,7 +6,7 @@ const { readmeUrl } = packageJson.content;
 
 const Footer = () => (
   <footer class={style.footer}>
-    Feedback/Suggestions/requests 👉 <a href="mailto:feedback@scrollbible.app">feedback@scrollbible.app</a>.
+    Feedback/suggestions/requests 👉 <a href="mailto:feedback@scrollbible.app">feedback@scrollbible.app</a>.
   </footer>
 );
 

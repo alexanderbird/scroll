@@ -6,6 +6,7 @@ import { Loading } from '../../components/loading';
 import style from './style.css';
 import { deserialize } from '../../data-transformations/verse';
 import { useRelatedVerses } from '../../hooks/useRelatedVerses';
+import { LicenseSummary } from '../../components/license';
 
 const Related = ({ id, content }) => {
   const verse = deserialize(content);
@@ -33,6 +34,7 @@ const Related = ({ id, content }) => {
           <button onClick={loadNextPageOfRelatedVerses}>more<br/>⬇</button>
         </div>
       ) }
+      <LicenseSummary />
     </div>
   );
 }

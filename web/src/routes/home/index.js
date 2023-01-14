@@ -1,9 +1,11 @@
 import { h } from 'preact';
+import { Link } from 'preact-router/match';
 import { useState, useEffect } from 'preact/hooks';
 import { buildClient, defaultTimeProvider, wrapFetch } from 'scroll-api-sdk';
 import style from './style.css';
 import { Tiles } from '../../components/tiles';
 import { Loading } from '../../components/loading';
+import { LicenseSummary } from '../../components/license';
 
 const Home = () => {
   const [ verses, setVerses ] = useState([]);
@@ -35,9 +37,12 @@ const Home = () => {
     <div class={style.home}>
       <Tiles items={verses} />
       { isLoadingNextVerses ? <Loading/> : (
-        <div class={style.buttonBar}>
-          <button onClick={addAnotherPage}>more<br/>⬇</button>
-        </div>
+        <>
+          <div class={style.buttonBar}>
+            <button onClick={addAnotherPage}>more<br/>⬇</button>
+          </div>
+          <LicenseSummary />
+        </>
       ) }
     </div>
   );

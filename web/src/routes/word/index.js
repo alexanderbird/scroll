@@ -6,6 +6,7 @@ import { Loading } from '../../components/loading';
 import style from './style.css';
 import { deserialize } from '../../data-transformations/verse';
 import { useRelatedVerses } from '../../hooks/useRelatedVerses';
+import { LicenseSummary } from '../../components/license';
 
 const Word = ({ id, verseContent }) => {
   const contextVerse = verseContent ? deserialize(verseContent) : false;
@@ -43,6 +44,7 @@ const Word = ({ id, verseContent }) => {
           <button onClick={loadNextPageOfRelatedVerses}>more<br/>⬇</button>
         </div>
       ) }
+      <LicenseSummary />
     </div>
   );
 }

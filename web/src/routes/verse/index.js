@@ -5,6 +5,7 @@ import style from './style.css';
 import { Tiles } from '../../components/tiles';
 import { Loading } from '../../components/loading';
 import { deserialize } from '../../data-transformations/verse';
+import { LicenseSummary } from '../../components/license';
 
 const Verse = ({ id, content }) => {
   const thisVerse = deserialize(content);
@@ -98,6 +99,7 @@ const Verse = ({ id, content }) => {
           <button onClick={addAnotherPage}>more<br/>⬇</button>
         </div>
       ) : null }
+      <LicenseSummary />
     </div>
   );
 }

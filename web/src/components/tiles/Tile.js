@@ -85,7 +85,7 @@ const SelectedTextWithStrongs = ({ classes, verse, doShowRelated }) => {
   const content = serialize(verse);
   return (
     <div class={classes.join(' ')}>
-      <div class={style.tileReference}>{reference}</div>
+      <div class={style.tileReference}><ResponsiveReference reference={reference}/></div>
       <div class={[style.tileStrongs, style.tileText].join(' ')}>
         <div>
         { data.filter(x => !!x.t.trim()).map(segment => <VerseSegment segment={segment} verseContent={content} />) }
@@ -102,7 +102,7 @@ const TextWithStrongs = ({ classes, verse, selectedWord }) => {
   const { type, data, reference, related, id, selected } = verse;
   return (
     <Link class={classes.join(' ')} href={`/v/${id}/${serialize(verse)}`}>
-      <div class={style.tileReference}>{reference}</div>
+      <div class={style.tileReference}><ResponsiveReference reference={reference}/></div>
         <div class={style.tileText}>
           {data.map(segment => (
             <span class={segment.s === selectedWord ? style.selectedWord : ''}>{segment.t} </span>
@@ -112,3 +112,18 @@ const TextWithStrongs = ({ classes, verse, selectedWord }) => {
   );
 }
   
+const ResponsiveReference = ({ reference }) => {
+  try {
+    const [,book, verse] = reference.match(/^(.*) (\d+:\d+)$/);
+    return (
+      <span class={style.responsiveReference}>
+        <span>{book}&nbsp;</span>
+        <span>{verse}</span>
+      </span>
+    );
+  } catch(e) {
+    console.error(e);
+    return reference;
+  }
+}
+

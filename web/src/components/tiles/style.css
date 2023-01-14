@@ -40,6 +40,12 @@
   flex-basis: 1;
 }
 
+@media (min-width: 500px) {
+  .tile .tileReference {
+    min-width: 100px;
+  }
+}
+
 .tile .tileText {
   padding: 5px 10px;
   margin-right: auto;
@@ -92,4 +98,16 @@
 }
 .relatedLink a:hover {
   background-color: #ff04;
+}
+
+.responsiveReference {
+  padding: 5px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 500px) {
+  .responsiveReference {
+    flex-direction: row;
+  }
 }

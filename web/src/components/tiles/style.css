@@ -9,22 +9,52 @@
 
 .tile {
   border-radius: 5px;
-  margin-bottom: 5px;
-  padding: 5px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  margin-top: 15px;
   overflow-wrap: normal;
+  display: flex;
+  flex-direction: row;
+  text-decoration: inherit;
+  color: inherit;
 }
 
-.tileSelected {
+.tile.tileSelected {
   font-weight: bold;
-  border: 1px solid #008;
+  border: 2px solid var(--color-volume-9);
+  padding: 10px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.tile .tileReference {
+  font-size: 0.8rem;
+  color: var(--color-volume-2);
+  padding-right: 10px;
+  padding-left: 10px;
+  background-color: var(--color-volume-1);
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-grow: 0;
+  flex-basis: 1;
+}
+
+.tile .tileText {
+  padding: 5px 10px;
+  margin-right: auto;
+  flex-grow: 1;
+  flex-basis: 0;
+  border: 1px solid var(--color-volume-1);
 }
 
 .tile:not(.tileSelected):hover {
   background-color: #0082;
 }
 
-.tileText {
-  display: inline;
+.strongsContainer {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .tileStrongs {
@@ -45,13 +75,6 @@
 .selectedWord {
   background-color: #ff04;
   font-weight: bold;
-}
-
-.tileReference {
-  font-size: 0.8rem;
-  color: #0008;
-  display: inline;
-  padding-right: 1rem;
 }
 
 .verseSegment {

@@ -12,7 +12,7 @@ const VerseSegment = ({ segment, verseContent }) => (
 
 export const Tile = ({ selectedWord, verse, doShowRelated }) => {
   const { type, data, reference, related, id, selected } = verse;
-  const classes = [style.tile, 'reset']
+  const classes = [style.tile];
   if (verse.selected) {
     classes.push(style.tileSelected);
   }
@@ -41,16 +41,18 @@ export const Tile = ({ selectedWord, verse, doShowRelated }) => {
       : 0;
     return (
       <div class={classes.join(' ')}>
-        <p>
-          {introduction}
-          <span> which means something like:</span>
-          <blockquote>{data.definition}</blockquote>
-        </p>
-        <StrongsDerivation {...data} label={label} contextVerse={serialize(contextVerse)} />
-        <p>There { countOfRelated === 1
-          ? "is 1 " + (contextVerse ? "other " : "") + "verse that includes"
-          : "are " + countOfRelated + " " + (contextVerse ? "other " : "") + "verses that include"
-        } {data.original}.</p>
+        <div class={style.strongsContainer}>
+          <p>
+            {introduction}
+            <span> which means something like:</span>
+            <blockquote>{data.definition}</blockquote>
+          </p>
+          <StrongsDerivation {...data} label={label} contextVerse={serialize(contextVerse)} />
+          <p>There { countOfRelated === 1
+            ? "is 1 " + (contextVerse ? "other " : "") + "verse that includes"
+            : "are " + countOfRelated + " " + (contextVerse ? "other " : "") + "verses that include"
+          } {data.original}.</p>
+        </div>
       </div>
     );
   }
@@ -84,12 +86,14 @@ const SelectedTextWithStrongs = ({ classes, verse, doShowRelated }) => {
   return (
     <div class={classes.join(' ')}>
       <div class={style.tileReference}>{reference}</div>
-      <div class={style.tileStrongs}>
+      <div class={[style.tileStrongs, style.tileText].join(' ')}>
+        <div>
         { data.filter(x => !!x.t.trim()).map(segment => <VerseSegment segment={segment} verseContent={content} />) }
+        </div>
+        { !doShowRelated || countOfRelated < 1 ? null : (<div class={style.relatedLink}>
+          <Link href={`/related/${id}/${content}`}>{relatedText}</Link>
+        </div>)}
       </div>
-      { !doShowRelated || countOfRelated < 1 ? null : (<div class={style.relatedLink}>
-        <Link href={`/related/${id}/${content}`}>{relatedText}</Link>
-      </div>)}
     </div>
   );
 }

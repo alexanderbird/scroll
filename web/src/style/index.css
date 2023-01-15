@@ -13,6 +13,7 @@ html, body {
   --color-volume-2: #777;
   --color-volume-1: #DDD;
   --color-volume-0: #FFF;
+  --main-width: 1000px;
 }
 
 h3 {

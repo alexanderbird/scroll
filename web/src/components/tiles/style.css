@@ -2,7 +2,7 @@
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  max-width: 1000px;
+  max-width: var(--main-width);
   margin: 0 auto;
   padding-left: 0;
 }

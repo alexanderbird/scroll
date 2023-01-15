@@ -1,5 +1,8 @@
 .license {
   color: gray;
   margin-top: 24px;
-  font-size: 0.9em;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 12px;
+  max-width: var(--main-width);
 }

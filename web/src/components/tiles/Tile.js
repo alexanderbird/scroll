@@ -121,7 +121,7 @@ const ResponsiveReference = ({ reference }) => {
 }
 
 const VerseSegment = ({ segment, verseContent }) => (
-  <span>
+  <span class={style.verseSegmentContainer}>
     <Link class={style.verseSegment} href={`/word/${segment.s}/${verseContent}`} title={segment.s}>{segment.t}</Link>
     &ensp;
   </span>

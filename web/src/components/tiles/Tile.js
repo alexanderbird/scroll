@@ -3,13 +3,6 @@ import { Link } from 'preact-router/match';
 import style from './style.css';
 import { serialize } from '../../data-transformations/verse';
 
-const VerseSegment = ({ segment, verseContent }) => (
-  <span>
-    <Link class={style.verseSegment} href={`/word/${segment.s}/${verseContent}`} title={segment.s}>{segment.t}</Link>
-    &ensp;
-  </span>
-);
-
 export const Tile = ({ selectedWord, verse, doShowRelated }) => {
   const { type, data, reference, related, id, selected } = verse;
   const classes = [style.tile];
@@ -33,7 +26,7 @@ export const Tile = ({ selectedWord, verse, doShowRelated }) => {
     }
     const introduction = contextVerse && contextVerse.data
       ? (<span>
-          In {contextVerse.reference}, <em>"{ contextVerse.data.filter(x => x.s === id)[0].t }"</em> is translated from the {language} word {label.full}
+          In {contextVerse.reference}, <em>"{ contextVerse.data.filter(x => x.s === id)[0]?.t }"</em> is translated from the {language} word {label.full}
         </span>)
       : <span>The {language} word {label.full}</span>;
     const countOfRelated = related
@@ -126,4 +119,11 @@ const ResponsiveReference = ({ reference }) => {
     return reference;
   }
 }
+
+const VerseSegment = ({ segment, verseContent }) => (
+  <span>
+    <Link class={style.verseSegment} href={`/word/${segment.s}/${verseContent}`} title={segment.s}>{segment.t}</Link>
+    &ensp;
+  </span>
+);
 

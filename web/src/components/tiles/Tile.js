@@ -106,8 +106,9 @@ const TextWithStrongs = ({ classes, verse, selectedWord }) => {
 }
   
 const ResponsiveReference = ({ reference }) => {
+  const referencePattern = /^(.*) (\d+:\d+)$/;
   try {
-    const [,book, verse] = reference.match(/^(.*) (\d+:\d+)$/);
+    const [ , book, verse] = reference.match(referencePattern);
     return (
       <span class={style.responsiveReference}>
         <span>{book}&nbsp;</span>
@@ -115,7 +116,7 @@ const ResponsiveReference = ({ reference }) => {
       </span>
     );
   } catch(e) {
-    console.error(e);
+    console.error(`Failed to parse reference. "${reference}" does not match ${referencePattern}. ${e}`);
     return reference;
   }
 }

@@ -11,8 +11,8 @@ export const Tile = ({ selectedWord, verse, doShowRelated }) => {
     classes.push(style.tileSelected);
   }
   if (type === "TEXT_WITH_STRONGS") {
-    return selected
-      ? <SelectedTextWithStrongs verse={verse} classes={classes} doShowRelated={doShowRelated} />
+    return selected || verse.doExplodeVerseSegments
+      ? <SelectedTextWithStrongs verse={verse} classes={classes} doShowRelated={doShowRelated} selectedWord={selectedWord} />
       : <TextWithStrongs verse={verse} classes={classes} selectedWord={selectedWord}/>
   }
   if (type === "TEXT") {
@@ -70,20 +70,23 @@ const StrongsDerivation = ({ transliteration, derivation, contextVerse, label}) 
   );
 }
 
-const SelectedTextWithStrongs = ({ classes, verse, doShowRelated }) => {
-  const { type, data, reference, related, id, selected } = verse;
+const SelectedTextWithStrongs = ({ classes, verse, doShowRelated, selectedWord }) => {
+  const { type, data, reference, related, id, selected, doExplodeVerseSegments } = verse;
   const countOfRelated = related.split(",").filter(x => !!x).length;
   const relatedText = countOfRelated === 1
     ? "1 related verse "
     : `${countOfRelated} related verses `;
   const content = serialize(verse);
-  return (
+  const verseTextComponent = selected || doExplodeVerseSegments
+    ? data.filter(x => !!x.t.trim()).map(segment => <VerseSegment segment={segment} verseContent={content} selectedWord={selectedWord} />)
+    : data.filter(x => !!x.t.trim()).map(segment => (
+            <span class={segment.s === selectedWord ? style.selectedWord : ''}>{segment.t.trim()}&ensp;</span>));
+  const childClasses = selected || doExplodeVerseSegments ? [style.tileStrongs, style.tileText] : [style.tileText];
+  return ( 
     <div class={classes.join(' ')}>
       <div class={style.tileReference}><ResponsiveReference reference={reference}/></div>
-      <div class={[style.tileStrongs, style.tileText].join(' ')}>
-        <div>
-        { data.filter(x => !!x.t.trim()).map(segment => <VerseSegment segment={segment} verseContent={content} />) }
-        </div>
+      <div class={childClasses.join(' ')}>
+        <div>{ verseTextComponent }</div>
         { !doShowRelated || countOfRelated < 1 ? null : (
           <div class={style.relatedLink}>
             <Link href={`/related/${id}/${content}`}><span>{relatedText}</span><KeyboardDoubleArrowRightIcon /></Link>
@@ -101,7 +104,7 @@ const TextWithStrongs = ({ classes, verse, selectedWord }) => {
       <div class={style.tileReference}><ResponsiveReference reference={reference}/></div>
         <div class={style.tileText}>
           {data.map(segment => (
-            <span class={segment.s === selectedWord ? style.selectedWord : ''}>{segment.t.trim()} </span>
+            <span class={segment.s === selectedWord ? style.selectedWord : ''}>{segment.t.trim()}&ensp;</span>
           ))}
         </div>
     </Link>
@@ -124,10 +127,15 @@ const ResponsiveReference = ({ reference }) => {
   }
 }
 
-const VerseSegment = ({ segment, verseContent }) => (
-  <span class={style.verseSegmentContainer}>
-    <Link class={style.verseSegment} href={`/word/${segment.s}/${verseContent}`} title={segment.s}>{segment.t}</Link>
-    &ensp;
-  </span>
-);
-
+const VerseSegment = ({ segment, verseContent, selectedWord }) => {
+  const classes = [style.verseSegment];
+  if (selectedWord === segment.s) {
+    classes.push(style.selectedWord);
+  }
+  return (
+    <span class={style.verseSegmentContainer}>
+      <Link class={classes.join(' ')} href={`/word/${segment.s}/${verseContent}`} title={segment.s}>{segment.t}</Link>
+      &ensp;
+    </span>
+  );
+}

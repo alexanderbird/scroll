@@ -1,5 +1,7 @@
 import { h } from 'preact';
 import { Link } from 'preact-router/match';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import Button from '@mui/material/Button';
 import { useState, useEffect } from 'preact/hooks';
 import { buildClient, defaultTimeProvider, wrapFetch } from 'scroll-api-sdk';
 import style from './style.css';
@@ -39,7 +41,7 @@ const Home = () => {
       { isLoadingNextVerses ? <Loading/> : (
         <>
           <div class={style.buttonBar}>
-            <button onClick={addAnotherPage}>more<br/>⬇</button>
+            <Button onClick={addAnotherPage}><KeyboardDoubleArrowDownIcon/></Button>
           </div>
           <LicenseSummary />
         </>

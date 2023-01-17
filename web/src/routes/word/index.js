@@ -2,6 +2,8 @@ import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import { buildClient, defaultTimeProvider, wrapFetch } from 'scroll-api-sdk';
 import { Tiles } from '../../components/tiles';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import Button from '@mui/material/Button';
 import { Loading } from '../../components/loading';
 import style from './style.css';
 import { deserialize } from '../../data-transformations/verse';
@@ -30,7 +32,7 @@ const Word = ({ id, verseContent }) => {
     setStrongsEntry(result);
   }, [id]);
 
-  const backgroundItems = contextVerse ? [{ ... contextVerse }] : [];
+  const backgroundItems = contextVerse ? [{ ...contextVerse, doExplodeVerseSegments: true }] : [];
   backgroundItems.push({ ...strongsEntry, contextVerse, selected: true });
   const items = [ ...backgroundItems, ...relatedVerses ];
   return (
@@ -41,7 +43,7 @@ const Word = ({ id, verseContent }) => {
       { isLoadingRelatedVerses ? <Loading /> : null }
       { !canLoadMoreRelatedVerses ? null : (
         <div class={style.buttonBar}>
-          <button onClick={loadNextPageOfRelatedVerses}>more<br/>⬇</button>
+          <Button onClick={loadNextPageOfRelatedVerses}><KeyboardDoubleArrowDownIcon/></Button>
         </div>
       ) }
       <LicenseSummary />

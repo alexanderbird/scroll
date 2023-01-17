@@ -30,6 +30,10 @@
     "sirv-cli": "1.0.3"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.4",
     "preact": "^10.11.3",
     "preact-render-to-string": "^5.1.4",
     "preact-router": "^3.2.1",

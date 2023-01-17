@@ -1,4 +1,7 @@
 import { h } from 'preact';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import Button from '@mui/material/Button';
 import { useState, useEffect } from 'preact/hooks';
 import { buildClient, defaultTimeProvider, wrapFetch } from 'scroll-api-sdk';
 import style from './style.css';
@@ -88,7 +91,9 @@ const Verse = ({ id, content }) => {
       <h3>{ thisVerse.reference.replace(/:.*$/, '')} </h3>
       { !isLoadingPreviousVerses && areThereMorePreviousVerses ? (
         <div class={style.buttonBar}>
-          <button onClick={addAnotherPreviousPage}>⬆<br/>more</button>
+          <Button onClick={addAnotherPreviousPage}>
+            <KeyboardDoubleArrowUpIcon />
+          </Button>
         </div>
       ) : null }
       { isLoadingPreviousVerses ? <Loading /> : null }
@@ -96,7 +101,7 @@ const Verse = ({ id, content }) => {
       { isLoadingNextVerses ? <Loading /> : null }
       { !isLoadingNextVerses && areThereMoreVerses ? (
         <div class={style.buttonBar}>
-          <button onClick={addAnotherPage}>more<br/>⬇</button>
+          <Button onClick={addAnotherPage}><KeyboardDoubleArrowDownIcon/></Button>
         </div>
       ) : null }
       <LicenseSummary />

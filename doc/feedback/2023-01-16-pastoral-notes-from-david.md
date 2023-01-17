@@ -39,14 +39,14 @@ is the thing that is on another page.
 
 ## minor notes
 
-- when I'm into the Strong's number by clicking on a word I can go back to the
+- [x] when I'm into the Strong's number by clicking on a word I can go back to the
   original verse. I'd also like to click through each word in the verse as if
   that verse is selected.
-- need a back button
-- on mobile, when a verse is tapped but the link isn't navigated, it's
+- [x] need a back button
+- [x] on mobile, when a verse is tapped but the link isn't navigated, it's
   highlighted with the hover color and it's confusing/weird. Don't do that on
   touch devices.
-- emoji icons are weird
+- [x] emoji icons are weird
 - on Word page, you say "which means something like" -- is that correct? Should
   it not say "in this cotext it means" or something like that? Are you using the
   Strong's dictionary correctly?

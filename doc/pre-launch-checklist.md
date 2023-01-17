@@ -16,13 +16,14 @@ Context is discoverable from the app
 - more pleasant to use than that other Bible app
   - UX review from an expert
   - sharing?
-   - social meta tags so the description comes through clearly when sharing
-     https://scrollbible.app
-   - maybe a better icon/colors/whatever
-   - maybe nice social meta tags for indivual verses (so you can share a verse
-     and the preview includes verse reference or something)
-   - maybe a share button
-   - review the PWA meta data
+    - social meta tags so the description comes through clearly when sharing
+      https://scrollbible.app
+    - maybe a better icon/colors/whatever
+    - maybe nice social meta tags for indivual verses (so you can share a verse
+      and the preview includes verse reference or something)
+    - maybe a share button
+    - review the PWA meta data
+  - jump to a specific verse
 - observability
   - collect metrics for
      - API requests per unit time

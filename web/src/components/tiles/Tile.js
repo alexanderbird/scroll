@@ -1,5 +1,7 @@
 import { h } from 'preact';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import NorthEastIcon from '@mui/icons-material/NorthEast';
+import Button from '@mui/material/Button';
 import { Link } from 'preact-router/match';
 import style from './style.css';
 import { serialize } from '../../data-transformations/verse';
@@ -63,7 +65,7 @@ const StrongsDerivation = ({ transliteration, derivation, contextVerse, label}) 
     <p>
       <span>{upperCaseTransliteration} is </span>
       {derivationChunks.map(chunk => chunk.match(relatedWordIdsPattern)
-        ? <Link href={`/word/${chunk}`}>{chunk}</Link>
+        ? <Button href={`/word/${chunk}`} size="medium">{chunk} <NorthEastIcon /></Button>
         : <span>{chunk}</span>
       )}
     </p>
@@ -89,7 +91,7 @@ const SelectedTextWithStrongs = ({ classes, verse, doShowRelated, selectedWord }
         <div>{ verseTextComponent }</div>
         { !doShowRelated || countOfRelated < 1 ? null : (
           <div class={style.relatedLink}>
-            <Link href={`/related/${id}/${content}`}><span>{relatedText}</span><KeyboardDoubleArrowRightIcon /></Link>
+            <Button href={`/related/${id}/${content}`}><span>{relatedText}</span><KeyboardDoubleArrowRightIcon /></Button>
           </div>
         )}
       </div>

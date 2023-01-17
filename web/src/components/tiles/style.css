@@ -107,15 +107,19 @@
 
 .relatedLink {
   margin-top: 12px;
-  text-align: right;
   font-weight: normal;
+  display: flex;
 }
 .relatedLink a {
   text-decoration: none;
   color: inherit;
-}
-.relatedLink a:hover {
-  background-color: #ff04;
+  margin-left: auto;
+  margin-right: 0;
+  padding-left: 14px;
+  padding-right: 2px;
+  display: flex;
+  align-items: center;
+  text-transform: none;
 }
 
 .responsiveReference {

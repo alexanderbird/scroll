@@ -1,4 +1,5 @@
 import { h } from 'preact';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { Link } from 'preact-router/match';
 import style from './style.css';
 import { serialize } from '../../data-transformations/verse';
@@ -73,8 +74,8 @@ const SelectedTextWithStrongs = ({ classes, verse, doShowRelated }) => {
   const { type, data, reference, related, id, selected } = verse;
   const countOfRelated = related.split(",").filter(x => !!x).length;
   const relatedText = countOfRelated === 1
-    ? "1 related verse ➡"
-    : `${countOfRelated} related verses ➡`;
+    ? "1 related verse "
+    : `${countOfRelated} related verses `;
   const content = serialize(verse);
   return (
     <div class={classes.join(' ')}>
@@ -83,9 +84,11 @@ const SelectedTextWithStrongs = ({ classes, verse, doShowRelated }) => {
         <div>
         { data.filter(x => !!x.t.trim()).map(segment => <VerseSegment segment={segment} verseContent={content} />) }
         </div>
-        { !doShowRelated || countOfRelated < 1 ? null : (<div class={style.relatedLink}>
-          <Link href={`/related/${id}/${content}`}>{relatedText}</Link>
-        </div>)}
+        { !doShowRelated || countOfRelated < 1 ? null : (
+          <div class={style.relatedLink}>
+            <Link href={`/related/${id}/${content}`}><span>{relatedText}</span><KeyboardDoubleArrowRightIcon /></Link>
+          </div>
+        )}
       </div>
     </div>
   );

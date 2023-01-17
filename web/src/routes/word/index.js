@@ -5,6 +5,7 @@ import { Tiles } from '../../components/tiles';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import Button from '@mui/material/Button';
 import { Loading } from '../../components/loading';
+import { PageHeader } from '../../components/pageHeader';
 import style from './style.css';
 import { deserialize } from '../../data-transformations/verse';
 import { useRelatedVerses } from '../../hooks/useRelatedVerses';
@@ -38,7 +39,7 @@ const Word = ({ id, verseContent }) => {
   return (
     <div class={style.word}>
       <br/>
-      <h3>Strong's {id} {strongsEntry.data.transliteration ? `(${strongsEntry.data.transliteration})` : ''}</h3>
+      <PageHeader>Strong's {id} {strongsEntry.data.transliteration ? `(${strongsEntry.data.transliteration})` : ''}</PageHeader>
       <Tiles selectedWord={id} items={items} />
       { isLoadingRelatedVerses ? <Loading /> : null }
       { !canLoadMoreRelatedVerses ? null : (

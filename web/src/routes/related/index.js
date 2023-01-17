@@ -3,6 +3,7 @@ import { useState, useEffect } from 'preact/hooks';
 import { buildClient, defaultTimeProvider, wrapFetch } from 'scroll-api-sdk';
 import { Tiles } from '../../components/tiles';
 import { Loading } from '../../components/loading';
+import { PageHeader } from '../../components/pageHeader';
 import style from './style.css';
 import { deserialize } from '../../data-transformations/verse';
 import { useRelatedVerses } from '../../hooks/useRelatedVerses';
@@ -26,7 +27,7 @@ const Related = ({ id, content }) => {
   return (
     <div class={style.word}>
       <br/>
-      <h3>Verses related to {verse.reference}</h3>
+      <PageHeader>Verses related to {verse.reference}</PageHeader>
       <Tiles selectedWord={id} items={items} />
       { isLoadingRelatedVerses ? <Loading /> : null }
       { !canLoadMoreRelatedVerses ? null : (

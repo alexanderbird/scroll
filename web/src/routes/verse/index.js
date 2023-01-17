@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import { useState, useEffect } from 'preact/hooks';
 import { buildClient, defaultTimeProvider, wrapFetch } from 'scroll-api-sdk';
 import style from './style.css';
+import { PageHeader } from '../../components/pageHeader';
 import { Tiles } from '../../components/tiles';
 import { Loading } from '../../components/loading';
 import { deserialize } from '../../data-transformations/verse';
@@ -88,7 +89,7 @@ const Verse = ({ id, content }) => {
 
   return (
     <div class={style.verse}>
-      <h3>{ thisVerse.reference.replace(/:.*$/, '')} </h3>
+      <PageHeader>{ thisVerse.reference.replace(/:.*$/, '')}</PageHeader>
       { !isLoadingPreviousVerses && areThereMorePreviousVerses ? (
         <div class={style.buttonBar}>
           <Button onClick={addAnotherPreviousPage}>

@@ -1,0 +1,25 @@
+.pageHeader {
+  display: flex;
+}
+
+.pageHeader .pageHeaderBackButton {
+  display: flex;
+  justify-items: flex-start;
+}
+
+.pageHeader .pageHeaderBackButton button {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  margin-left: 0;
+}
+
+.pageHeader .pageHeaderBackButton button .pageHeaderBackButtonLabel {
+  padding-left: 2px;
+  position: relative;
+  top: 1px;
+}
+
+.pageHeader > * {
+  flex: 1;
+}

@@ -66,8 +66,10 @@
   border: 1px solid var(--color-volume-1);
 }
 
-.tile:not(.tileSelected):hover .tileText:not(.tileStrongs) {
-  background-color: #0082;
+@media (hover: hover) {
+  .tile:not(.tileSelected):hover .tileText:not(.tileStrongs) {
+    background-color: #0082;
+  }
 }
 
 .strongsContainer {
@@ -86,8 +88,10 @@
   line-height: 2em;
 }
 
-.tileStrongs a:hover {
-  background-color: #ff04;
+@media (hover: hover) {
+  .tileStrongs a:hover {
+    background-color: #ff04;
+  }
 }
 
 .selectedWord {

@@ -6,6 +6,7 @@ import Footer from './footer';
 
 // Code-splitting is automated for `routes` directory
 import Home from '../routes/home';
+import Jump from '../routes/jump';
 import Verse from '../routes/verse';
 import Word from '../routes/word';
 import Related from '../routes/related';
@@ -17,10 +18,10 @@ const App = () => (
     <Router>
       <Home path="/" />
       <License path="/about/license" />
-      <Verse path="/v/:id/:content" />
+      <Verse path="/v/:id/:content?" />
       <Related path="/related/:id/:content" />
-      <Word path="/word/:id/:verseContent" />
-      <Word path="/word/:id" />
+      <Word path="/word/:id/:verseContent?" />
+      <Jump path="/jump/:query?" />
     </Router>
     <Footer />
   </div>

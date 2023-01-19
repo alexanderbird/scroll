@@ -37,7 +37,8 @@
     "preact": "^10.11.3",
     "preact-render-to-string": "^5.1.4",
     "preact-router": "^3.2.1",
-    "scroll-api-sdk": "file:../api-sdk"
+    "scroll-api-sdk": "file:../api-sdk",
+    "scroll-core": "file:../core"
   },
   "jest": {
     "preset": "jest-preset-preact",

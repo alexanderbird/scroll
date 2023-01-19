@@ -12,7 +12,7 @@ import { deserialize } from '../../data-transformations/verse';
 import { LicenseSummary } from '../../components/license';
 
 const Verse = ({ id, content }) => {
-  const thisVerse = deserialize(content);
+  const [ thisVerse, setThisVerse ] = useState(content ? deserialize(content) : null);
   const [ areThereMoreVerses, setAreThereMoreVerses ] = useState(false);
   const [ areThereMorePreviousVerses, setAreThereMorePreviousVerses ] = useState(false);
   const [ isLoadingPreviousVerses, setIsLoadingPreviousVerses ] = useState(true);
@@ -22,13 +22,24 @@ const Verse = ({ id, content }) => {
   const client = buildClient({ timeProvider: defaultTimeProvider, httpGet: wrapFetch(fetch), log: console.info });
 
   useEffect(async () => {
+    if (thisVerse) return;
+    const result = await client.getItem({
+      id,
+      language: 'en',
+      translation: 'webp',
+      document: 'bible',
+    });
+    setThisVerse(result);
+  }, [id, content]);
+
+  useEffect(async () => {
     setIsLoadingPreviousVerses(true);
     setPreviousVerses([]);
     const result = await client.getVersesInCanonicalOrder({
       pageSize: 1,
       direction: 'REVERSE',
-      idPrefix: thisVerse.id.split('-').slice(0, 2).join('-'),
-      startingId: thisVerse.id,
+      idPrefix: id.split('-').slice(0, 2).join('-'),
+      startingId: id,
     });
     setAreThereMorePreviousVerses(!!result.nextPage);
     setIsLoadingPreviousVerses(false);
@@ -41,8 +52,8 @@ const Verse = ({ id, content }) => {
     const result = await client.getVersesInCanonicalOrder({
       pageSize: 15,
       direction: 'FORWARD',
-      idPrefix: thisVerse.id.split('-').slice(0, 2).join('-'),
-      startingId: thisVerse.id,
+      idPrefix: id.split('-').slice(0, 2).join('-'),
+      startingId: id,
     });
     setAreThereMoreVerses(!!result.nextPage);
     setIsLoadingNextVerses(false);
@@ -57,7 +68,7 @@ const Verse = ({ id, content }) => {
     const result = await client.getVersesInCanonicalOrder({
       pageSize: 15,
       direction: 'FORWARD',
-      idPrefix: thisVerse.id.split('-').slice(0, 2).join('-'),
+      idPrefix: id.split('-').slice(0, 2).join('-'),
       startingId: nextVerses[nextVerses.length - 1].id,
     });
     setAreThereMoreVerses(!!result.nextPage);
@@ -73,7 +84,7 @@ const Verse = ({ id, content }) => {
     const result = await client.getVersesInCanonicalOrder({
       pageSize: 5,
       direction: 'REVERSE',
-      idPrefix: thisVerse.id.split('-').slice(0, 2).join('-'),
+      idPrefix: id.split('-').slice(0, 2).join('-'),
       startingId: previousVerses[0].id,
     });
     setAreThereMorePreviousVerses(!!result.nextPage);
@@ -81,15 +92,12 @@ const Verse = ({ id, content }) => {
     setPreviousVerses(x => [...result.verses.reverse(), ...x ]);
   }
 
-  const verses = [
-    ...previousVerses,
-    { selected: true, ...thisVerse },
-    ...nextVerses
-  ];
-
+  const verses = thisVerse
+    ? [ ...previousVerses, { selected: true, ...thisVerse }, ...nextVerses ]
+    : [ ...previousVerses, ...nextVerses ];
   return (
     <div class={style.verse}>
-      <PageHeader>{ thisVerse.reference.replace(/:.*$/, '')}</PageHeader>
+      <PageHeader>{ thisVerse ? thisVerse.reference.replace(/:.*$/, '') : id}</PageHeader>
       { !isLoadingPreviousVerses && areThereMorePreviousVerses ? (
         <div class={style.buttonBar}>
           <Button onClick={addAnotherPreviousPage}>
@@ -97,7 +105,7 @@ const Verse = ({ id, content }) => {
           </Button>
         </div>
       ) : null }
-      { isLoadingPreviousVerses ? <Loading /> : null }
+      { (isLoadingPreviousVerses && thisVerse) ? <Loading /> : null }
       <Tiles items={verses} doShowRelated={true}/>
       { isLoadingNextVerses ? <Loading /> : null }
       { !isLoadingNextVerses && areThereMoreVerses ? (

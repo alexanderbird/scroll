@@ -17,6 +17,13 @@ export const Tile = ({ selectedWord, verse, doShowRelated }) => {
       ? <SelectedTextWithStrongs verse={verse} classes={classes} doShowRelated={doShowRelated} selectedWord={selectedWord} />
       : <TextWithStrongs verse={verse} classes={classes} selectedWord={selectedWord}/>
   }
+  if (type === "LINK") {
+    return (
+      <div class={[...classes, style.linkTile].join(' ')}>
+        <Button href={data.href}>{data.text} <NorthEastIcon /></Button>
+      </div>
+    );
+  }
   if (type === "TEXT") {
     return <p class={classes.join(' ')}>{data}</p>;
   }
@@ -136,7 +143,7 @@ const VerseSegment = ({ segment, verseContent, selectedWord }) => {
   }
   return (
     <span class={style.verseSegmentContainer}>
-      <Link class={classes.join(' ')} href={`/word/${segment.s}/${verseContent}`} title={segment.s}>{segment.t}</Link>
+      <Link class={classes.join(' ')} href={`/word/${segment.s}/${verseContent}`} title={segment.s}>{segment.t.trim()}</Link>
       &ensp;
     </span>
   );

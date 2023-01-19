@@ -54,16 +54,25 @@
   min-width: calc(var(--tile-reference-width) - var(--tile-selected-border) - var(--tile-selected-padding));
 }
 
+.tile.linkTile > *,
 .tile .tileReference > * {
   margin: auto;
 }
 
+.tile.linkTile {
+  display: flex;
+}
+
+.tile.linkTile,
 .tile .tileText {
+  border: 1px solid var(--color-volume-1);
   padding: 5px 10px;
+}
+
+.tile .tileText {
   margin-right: auto;
   flex-grow: 1;
   flex-basis: 0;
-  border: 1px solid var(--color-volume-1);
 }
 
 @media (hover: hover) {

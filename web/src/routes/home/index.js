@@ -35,9 +35,14 @@ const Home = () => {
       setIsLoadingNextVerses(false);
   };
 
+  const items = [
+    { type: 'LINK', data: { href: '/jump', text: 'Jump to verse or word' } },
+    ...verses
+  ];
+
   return (
     <div class={style.home}>
-      <Tiles items={verses} />
+      <Tiles items={items} />
       { isLoadingNextVerses ? <Loading/> : (
         <>
           <div class={style.buttonBar}>

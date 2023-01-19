@@ -117,7 +117,7 @@ const TextWithStrongs = ({ classes, verse, selectedWord }) => {
       <div class={style.tileReference}><ResponsiveReference reference={reference}/></div>
         <div class={style.tileText}>
           {data.map(segment => (
-            <span class={segment.s === selectedWord ? style.selectedWord : ''}>{segment.t.trim()}&ensp;</span>
+            <span class={segment.s === selectedWord ? style.selectedWord : ''}>{segment.t.trim()} </span>
           ))}
         </div>
     </Link>

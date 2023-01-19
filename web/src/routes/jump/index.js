@@ -5,6 +5,7 @@ import { jump } from 'scroll-core';
 import { Link } from 'preact-router/match';
 import Button from '@mui/material/Button';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import Alert from '@mui/material/Alert';
 import Input from '@mui/material/Input';
 import { Tiles } from '../../components/tiles';
 import { PageHeader } from '../../components/pageHeader';
@@ -18,7 +19,9 @@ const Jump = ({ query: initialQuery }) => {
     setQuery(newQuery)
   };
 
-  const matches = (query && query.length > 1) ? jump(query) : false;
+  const attemptToSearch = query && query.length > 1;
+  const jumpResults = attemptToSearch ? jump(query) : false;
+  const tiles = wrapAsArray(mapJumpToTiles(jumpResults))
 
   return (
     <div class={style.jump}>
@@ -30,7 +33,13 @@ const Jump = ({ query: initialQuery }) => {
         onKeyUp={onInputChange}
         placeholder="Verse reference or Strong's number"/>
       <div>
-        <Tiles items={wrapAsArray(mapJumpToTiles(matches))} />
+        <Tiles items={tiles} />
+      </div>
+      <div>
+        <br/>
+        { attemptToSearch && !tiles.length
+          ? <Alert severity="error">No verses or Strong's numbers match <em>{query}</em></Alert>
+          : null }
       </div>
     </div>
   );

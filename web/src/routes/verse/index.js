@@ -4,6 +4,7 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import Button from '@mui/material/Button';
 import { useState, useEffect } from 'preact/hooks';
 import { buildClient, defaultTimeProvider, wrapFetch } from 'scroll-api-sdk';
+import { reference } from 'scroll-core';
 import style from './style.css';
 import { PageHeader } from '../../components/pageHeader';
 import { Tiles } from '../../components/tiles';
@@ -20,16 +21,12 @@ const Verse = ({ id, content }) => {
   const [ previousVerses, setPreviousVerses ] = useState([]);
   const [ nextVerses, setNextVerses ] = useState([]);
   const client = buildClient({ timeProvider: defaultTimeProvider, httpGet: wrapFetch(fetch), log: console.info });
+  const thisVerseIsPresent = thisVerse && !thisVerse.isMissing;
 
   useEffect(async () => {
     if (thisVerse) return;
-    const result = await client.getItem({
-      id,
-      language: 'en',
-      translation: 'webp',
-      document: 'bible',
-    });
-    setThisVerse(result);
+    const result = await client.getItem({ id, language: 'en', translation: 'webp', document: 'bible' });
+    setThisVerse(result || { isMissing: true, type: 'ERROR', data: `Could not find ${reference(id)}` });
   }, [id, content]);
 
   useEffect(async () => {
@@ -97,7 +94,7 @@ const Verse = ({ id, content }) => {
     : [ ...previousVerses, ...nextVerses ];
   return (
     <div class={style.verse}>
-      <PageHeader>{ thisVerse ? thisVerse.reference.replace(/:.*$/, '') : id}</PageHeader>
+      <PageHeader>{ thisVerseIsPresent ? thisVerse.reference.replace(/:.*$/, '') : reference(id)}</PageHeader>
       { !isLoadingPreviousVerses && areThereMorePreviousVerses ? (
         <div class={style.buttonBar}>
           <Button onClick={addAnotherPreviousPage}>
@@ -105,7 +102,7 @@ const Verse = ({ id, content }) => {
           </Button>
         </div>
       ) : null }
-      { (isLoadingPreviousVerses && thisVerse) ? <Loading /> : null }
+      { (isLoadingPreviousVerses && thisVerseIsPresent) ? <Loading /> : null }
       <Tiles items={verses} doShowRelated={true}/>
       { isLoadingNextVerses ? <Loading /> : null }
       { !isLoadingNextVerses && areThereMoreVerses ? (

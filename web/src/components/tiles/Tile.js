@@ -2,6 +2,7 @@ import { h } from 'preact';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
 import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
 import { Link } from 'preact-router/match';
 import style from './style.css';
 import { serialize } from '../../data-transformations/verse';
@@ -17,10 +18,13 @@ export const Tile = ({ selectedWord, verse, doShowRelated }) => {
       ? <SelectedTextWithStrongs verse={verse} classes={classes} doShowRelated={doShowRelated} selectedWord={selectedWord} />
       : <TextWithStrongs verse={verse} classes={classes} selectedWord={selectedWord}/>
   }
+  if (type === "ERROR") {
+    return <Alert severity="error">{ data }</Alert>
+  }
   if (type === "LINK") {
     return (
       <div class={[...classes, style.linkTile].join(' ')}>
-        <Button href={data.href}>{data.text} <NorthEastIcon /></Button>
+        <Button href={data.href} fullWidth={true}>{data.text} <NorthEastIcon /></Button>
       </div>
     );
   }

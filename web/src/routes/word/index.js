@@ -24,13 +24,8 @@ const Word = ({ id, verseContent }) => {
   } = useRelatedVerses({ client, ids: strongsEntry.related });
 
   useEffect(async () => {
-    const result = await client.getItem({
-      id,
-      language: 'en',
-      translation: 'strongs',
-      document: 'reference',
-    });
-    setStrongsEntry(result);
+    const result = await client.getItem({ id, language: 'en', translation: 'strongs', document: 'reference' });
+    setStrongsEntry(result || { isMissing: true, type: 'ERROR', data: `Strong's ${id} not found`, related: "" });
   }, [id]);
 
   const backgroundItems = contextVerse ? [{ ...contextVerse, doExplodeVerseSegments: true }] : [];

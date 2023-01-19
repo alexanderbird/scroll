@@ -84,6 +84,20 @@
 .strongsContainer {
   padding-left: 10px;
   padding-right: 10px;
+  font-weight: normal;
+}
+
+.strongsContainer em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+.strongsContainer blockquote {
+  border-left: 2px solid var(--color-volume-1);
+  font-weight: bold;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-bottom: 5px;
 }
 
 .tileStrongs {

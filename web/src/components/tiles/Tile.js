@@ -40,11 +40,12 @@ export const Tile = ({ selectedWord, verse, doShowRelated }) => {
     }
     const introduction = contextVerse && contextVerse.data
       ? (<span>
-          In {contextVerse.reference}, <em>"{ contextVerse.data.filter(x => x.s === id)[0]?.t }"</em> is translated from the {language} word {label.full}
+          In {contextVerse.reference}, "<em>{ contextVerse.data.filter(x => x.s === id)[0]?.t }</em>" is translated from the {language} word <em>{label.full}</em>
         </span>)
-      : <span>The {language} word {label.full}</span>;
+      : <span>The {language} word <em>{label.full}</em></span>;
+    const relatedIds = new Set(related.split(','));
     const countOfRelated = related
-      ? contextVerse ? related.split(',').length - 1 : related.split(',').length
+      ? contextVerse ? relatedIds.size - 1 : relatedIds.size
       : 0;
     return (
       <div class={classes.join(' ')}>
@@ -55,9 +56,9 @@ export const Tile = ({ selectedWord, verse, doShowRelated }) => {
             <blockquote>{data.definition}</blockquote>
           </p>
           <StrongsDerivation {...data} label={label} contextVerse={serialize(contextVerse)} />
-          <p>There { countOfRelated === 1
-            ? "is 1 " + (contextVerse ? "other " : "") + "verse that includes"
-            : "are " + countOfRelated + " " + (contextVerse ? "other " : "") + "verses that include"
+          <p>{ countOfRelated === 1
+            ? <span>There is <em>1 {contextVerse ? "other " : ""}verse</em> that includes</span>
+            : <span>There are <em>{countOfRelated} {contextVerse ? "other " : ""}verses</em> that include</span>
           } {data.original}.</p>
         </div>
       </div>
@@ -74,6 +75,7 @@ const StrongsDerivation = ({ transliteration, derivation, contextVerse, label}) 
   const derivationChunks = derivation.split(relatedWordIdsPattern);
   return (
     <p>
+      <span>Grammatical Notes: </span>
       <span>{upperCaseTransliteration} is </span>
       {derivationChunks.map(chunk => chunk.match(relatedWordIdsPattern)
         ? <Button href={`/word/${chunk}`} size="medium">{chunk} <NorthEastIcon /></Button>

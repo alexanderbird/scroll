@@ -94,7 +94,7 @@ const Verse = ({ id, content }) => {
     : [ ...previousVerses, ...nextVerses ];
   return (
     <div class={style.verse}>
-      <PageHeader>{ thisVerseIsPresent ? thisVerse.reference.replace(/:.*$/, '') : reference(id)}</PageHeader>
+      <PageHeader>{ (thisVerseIsPresent ? thisVerse.reference : reference(id)).replace(/:.*$/, '') }</PageHeader>
       { !isLoadingPreviousVerses && areThereMorePreviousVerses ? (
         <div class={style.buttonBar}>
           <Button onClick={addAnotherPreviousPage}>

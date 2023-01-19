@@ -5,6 +5,7 @@ import { jump } from 'scroll-core';
 import { Link } from 'preact-router/match';
 import Button from '@mui/material/Button';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import AirlineStopsIcon from '@mui/icons-material/AirlineStops';
 import Alert from '@mui/material/Alert';
 import Input from '@mui/material/Input';
 import { Tiles } from '../../components/tiles';
@@ -25,13 +26,13 @@ const Jump = ({ query: initialQuery }) => {
 
   return (
     <div class={style.jump}>
-      <PageHeader>Jump to Verse or Word</PageHeader>
+      <PageHeader><AirlineStopsIcon/> Jump to...</PageHeader>
       <Input
         class={style.jumpInput}
         fullWidth={true}
         value={query}
         onKeyUp={onInputChange}
-        placeholder="Verse reference or Strong's number"/>
+        placeholder="verse reference or Strong's number"/>
       <div>
         <Tiles items={tiles} />
       </div>

@@ -1,5 +1,7 @@
 .pageHeader {
   display: flex;
+  max-width: var(--main-width);
+  margin: 0 auto;
 }
 
 .pageHeader .pageHeaderBackButton {

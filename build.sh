@@ -2,7 +2,9 @@
 
 set -xe
 
-cd api-sdk
+cd core
+npm install
+cd ../api-sdk
 npm install
 npm run update-environment
 npm run build

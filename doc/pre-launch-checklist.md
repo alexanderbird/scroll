@@ -1,15 +1,5 @@
 # Things to do before the initial launch
 
-## Before sharing this with one or two close friends
-
-Give context 1:1 via text or in person
-
-- documentation
-  - regulatory/legal
-    - an About > Attribution page that covers the long-form attribution and
-      licensing requirements for the WEB Bible, the Strong's annotated Bible,
-      the cross references, and the Strong's dictionary
-
 ## Nice to have before sharing this more broadly
 Context is discoverable from the app
 
@@ -23,7 +13,7 @@ Context is discoverable from the app
       and the preview includes verse reference or something)
     - maybe a share button
     - review the PWA meta data
-  - jump to a specific verse
+  - dark mode?
 - observability
   - collect metrics for
      - API requests per unit time
@@ -55,9 +45,6 @@ Context is discoverable from the app
        - Is there a mobile app?
           - include instructions about install PWA (Share > Add to home screen)
        - etc.
-  - regulatory/legal
-    - check with the cross reference, the Strong's annotated Bible, and the Strong's
-      dictionary publishers if they are satisfied with the attribution on the site
 - maintainability refactor across all the code
   - data
      - data cleanup

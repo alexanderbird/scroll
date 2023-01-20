@@ -147,13 +147,23 @@
 }
 
 .responsiveReference {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.responsiveReference button {
+  margin-top: auto;
+  transform: scale(0.8);
+}
+.responsiveReferenceText {
   padding: 5px 0;
   display: flex;
+  justify-content: center;
   flex-direction: column;
 }
 
 @media (min-width: 800px) {
-  .responsiveReference {
+  .responsiveReferenceText {
     flex-direction: row;
   }
 }

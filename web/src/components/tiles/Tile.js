@@ -1,7 +1,10 @@
 import { h } from 'preact';
+import { useState } from 'preact/hooks';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
+import OfflineShareIcon from '@mui/icons-material/OfflineShare';
 import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { Link } from 'preact-router/match';
 import style from './style.css';
@@ -99,7 +102,7 @@ const SelectedTextWithStrongs = ({ classes, verse, doShowRelated, selectedWord }
   const childClasses = selected || doExplodeVerseSegments ? [style.tileStrongs, style.tileText] : [style.tileText];
   return ( 
     <div class={classes.join(' ')}>
-      <div class={style.tileReference}><ResponsiveReference reference={reference}/></div>
+      <div class={style.tileReference}><ResponsiveReference reference={reference} withSharingGesture={true}/></div>
       <div class={childClasses.join(' ')}>
         <div>{ verseTextComponent }</div>
         { !doShowRelated || countOfRelated < 1 ? null : (
@@ -126,15 +129,36 @@ const TextWithStrongs = ({ classes, verse, selectedWord }) => {
   );
 }
   
-const ResponsiveReference = ({ reference }) => {
+const ResponsiveReference = ({ reference, withSharingGesture }) => {
+  const [notification, setNotification] = useState(false);
   const referencePattern = /^(.*) (\d+:\d+)$/;
+  const shareGesture = () => {
+    if (navigator.share) {
+      navigator.share({ url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        setNotification({ severity: 'success', message: 'Copied URL to clipboard' });
+      }).catch(e => {
+        console.error(e);
+        setNotification({ severity: 'warning', message: 'There was a problem copying the URL to the clipboard' });
+      });
+    }
+  };
   try {
     const [ , book, verse] = reference.match(referencePattern);
     return (
-      <span class={style.responsiveReference}>
-        <span>{book}&nbsp;</span>
-        <span>{verse}</span>
-      </span>
+      <div class={style.responsiveReference}>
+        <span class={style.responsiveReferenceText}>
+          <span>{book}&nbsp;</span>
+          <span>{verse}</span>
+        </span>
+        { withSharingGesture ? <Button size="small" onClick={shareGesture}>save<OfflineShareIcon /></Button> : null }
+        <Snackbar open={!!notification} autoHideDuration={2000} onClose={() => setNotification(false)}>
+          <Alert severity={notification?.severity} variant='outlined' sx={{ bgcolor: 'background.paper' }}>
+            { notification?.message }
+          </Alert>
+        </Snackbar>
+      </div>
     );
   } catch(e) {
     console.error(`Failed to parse reference. "${reference}" does not match ${referencePattern}. ${e}`);

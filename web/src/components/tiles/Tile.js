@@ -104,7 +104,7 @@ const SelectedTextWithStrongs = ({ classes, verse, doShowRelated, selectedWord }
     <div class={classes.join(' ')}>
       <div class={style.tileReference}>
         <ResponsiveReference reference={reference} />
-        <SaveButton />
+        <SaveButton id={id}/>
       </div>
       <div class={childClasses.join(' ')}>
         <div>{ verseTextComponent }</div>
@@ -132,13 +132,14 @@ const TextWithStrongs = ({ classes, verse, selectedWord }) => {
   );
 }
 
-const SaveButton = () => {
+const SaveButton = ({ id }) => {
   const [notification, setNotification] = useState(false);
   const shareGesture = () => {
+    const shareUrl = `https://share.scrollbible.app/${id}`;
     if (navigator.share) {
-      navigator.share({ url: window.location.href });
+      navigator.share({ url: shareUrl });
     } else {
-      navigator.clipboard.writeText(window.location.href).then(() => {
+      navigator.clipboard.writeText(shareUrl).then(() => {
         setNotification({ severity: 'success', message: 'Copied URL to clipboard' });
       }).catch(e => {
         console.error(e);

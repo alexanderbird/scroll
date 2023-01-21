@@ -36,12 +36,23 @@
   padding-left: 10px;
   background-color: var(--color-volume-1);
   display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   text-align: center;
   flex-grow: 0;
   flex-basis: 1;
   --tile-reference-width: 100px;
   min-width: var(--tile-reference-width);
+}
+
+.tile.linkTile > *,
+.tile .tileReference > * {
+  margin: auto;
+}
+
+.tile .tileReference .tileReferenceSaveButton {
+  margin: 0;
 }
 
 @media (min-width: 800px) {
@@ -52,11 +63,6 @@
 
 .tile.tileSelected .tileReference {
   min-width: calc(var(--tile-reference-width) - var(--tile-selected-border) - var(--tile-selected-padding));
-}
-
-.tile.linkTile > *,
-.tile .tileReference > * {
-  margin: auto;
 }
 
 .tile.linkTile {
@@ -147,23 +153,13 @@
 }
 
 .responsiveReference {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.responsiveReference button {
-  margin-top: auto;
-  transform: scale(0.8);
-}
-.responsiveReferenceText {
   padding: 5px 0;
   display: flex;
-  justify-content: center;
   flex-direction: column;
 }
 
 @media (min-width: 800px) {
-  .responsiveReferenceText {
+  .responsiveReference {
     flex-direction: row;
   }
 }

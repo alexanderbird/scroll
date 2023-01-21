@@ -102,7 +102,10 @@ const SelectedTextWithStrongs = ({ classes, verse, doShowRelated, selectedWord }
   const childClasses = selected || doExplodeVerseSegments ? [style.tileStrongs, style.tileText] : [style.tileText];
   return ( 
     <div class={classes.join(' ')}>
-      <div class={style.tileReference}><ResponsiveReference reference={reference} withSharingGesture={true}/></div>
+      <div class={style.tileReference}>
+        <ResponsiveReference reference={reference} />
+        <SaveButton />
+      </div>
       <div class={childClasses.join(' ')}>
         <div>{ verseTextComponent }</div>
         { !doShowRelated || countOfRelated < 1 ? null : (
@@ -120,18 +123,17 @@ const TextWithStrongs = ({ classes, verse, selectedWord }) => {
   return (
     <Link class={classes.join(' ')} href={`/v/${id}/${serialize(verse)}`}>
       <div class={style.tileReference}><ResponsiveReference reference={reference}/></div>
-        <div class={style.tileText}>
-          {data.map(segment => (
-            <span class={segment.s === selectedWord ? style.selectedWord : ''}>{segment.t.trim()} </span>
-          ))}
-        </div>
+      <div class={style.tileText}>
+        {data.map(segment => (
+          <span class={segment.s === selectedWord ? style.selectedWord : ''}>{segment.t.trim()} </span>
+        ))}
+      </div>
     </Link>
   );
 }
-  
-const ResponsiveReference = ({ reference, withSharingGesture }) => {
+
+const SaveButton = () => {
   const [notification, setNotification] = useState(false);
-  const referencePattern = /^(.*) (\d+:\d+)$/;
   const shareGesture = () => {
     if (navigator.share) {
       navigator.share({ url: window.location.href });
@@ -144,21 +146,32 @@ const ResponsiveReference = ({ reference, withSharingGesture }) => {
       });
     }
   };
+  return (
+    <>
+      <span class={style.tileReferenceSaveButton}>
+        <Button size="small" fullWidth={true} onClick={shareGesture}>
+          <span>save</span>
+          <OfflineShareIcon />
+        </Button>
+      </span>
+      <Snackbar open={!!notification} autoHideDuration={2000} onClose={() => setNotification(false)}>
+        <Alert severity={notification?.severity} variant='outlined' sx={{ bgcolor: 'background.paper' }}>
+          { notification?.message }
+        </Alert>
+      </Snackbar>
+    </>
+  );
+}
+  
+const ResponsiveReference = ({ reference }) => {
+  const referencePattern = /^(.*) (\d+:\d+)$/;
   try {
     const [ , book, verse] = reference.match(referencePattern);
     return (
-      <div class={style.responsiveReference}>
-        <span class={style.responsiveReferenceText}>
-          <span>{book}&nbsp;</span>
-          <span>{verse}</span>
-        </span>
-        { withSharingGesture ? <Button size="small" onClick={shareGesture}>save<OfflineShareIcon /></Button> : null }
-        <Snackbar open={!!notification} autoHideDuration={2000} onClose={() => setNotification(false)}>
-          <Alert severity={notification?.severity} variant='outlined' sx={{ bgcolor: 'background.paper' }}>
-            { notification?.message }
-          </Alert>
-        </Snackbar>
-      </div>
+      <span class={style.responsiveReference}>
+        <span>{book}&nbsp;</span>
+        <span>{verse}</span>
+      </span>
     );
   } catch(e) {
     console.error(`Failed to parse reference. "${reference}" does not match ${referencePattern}. ${e}`);

@@ -1,19 +1,7 @@
 # Things to do before the initial launch
 
 ## Nice to have before sharing this more broadly
-Context is discoverable from the app
 
-- more pleasant to use than that other Bible app
-  - UX review from an expert
-  - sharing?
-    - social meta tags so the description comes through clearly when sharing
-      https://scrollbible.app
-    - maybe a better icon/colors/whatever
-    - maybe nice social meta tags for indivual verses (so you can share a verse
-      and the preview includes verse reference or something)
-    - maybe a share button
-    - review the PWA meta data
-  - dark mode?
 - observability
   - collect metrics for
      - API requests per unit time
@@ -21,9 +9,6 @@ Context is discoverable from the app
      - sessions per unit time
   - [maybe?] show metrics on the site (About > How It's Made) and include realtime
     estimated cost per month and per visit
-
-## Optional
-
 - documentation
   - public relations
     - an About page that communicates purpose
@@ -45,6 +30,12 @@ Context is discoverable from the app
        - Is there a mobile app?
           - include instructions about install PWA (Share > Add to home screen)
        - etc.
+- more pleasant to use than that other Bible app
+  - UX review from an expert
+  - maybe a better icon/colors/whatever
+  - maybe dark mode?
+
+## Optional -- before I forget the context
 - maintainability refactor across all the code
   - data
      - data cleanup
@@ -54,6 +45,8 @@ Context is discoverable from the app
           Client side
   - infra
      - separate stacks for db and api
+     - [maybe] nuke all the infra and rebuild it to check that the documentation is
+       complete and the process is repeatable
   - web client, SDK, and SDK tests
      - whatever it takes to make the code intention revealing and easy to change
 

@@ -6,7 +6,7 @@ ASSETS_SRC="$ICON_SRC/../src/assets"
 set -e
 set -x
 
-convert $ICON_SRC/icon.svg -resize 16x16 $ASSETS_SRC/favicon.ico
+convert $ICON_SRC/icon.svg -resize 64x64 $ASSETS_SRC/favicon.ico
 convert $ICON_SRC/icon.svg -resize 192x192 $ASSETS_SRC/icons/android-chrome-192x192.png
 convert $ICON_SRC/icon.svg -resize 512x512 $ASSETS_SRC/icons/android-chrome-512x512.png
 convert $ICON_SRC/icon.svg -resize 180x180 $ASSETS_SRC/icons/apple-touch-icon.png

@@ -13,7 +13,7 @@ import { deserialize } from '../../data-transformations/verse';
 import { LicenseSummary } from '../../components/license';
 
 const Verse = ({ id, content }) => {
-  const [ thisVerse, setThisVerse ] = useState(content ? deserialize(content) : null);
+  const [ thisVerse, setThisVerse ] = useState(null);
   const [ areThereMoreVerses, setAreThereMoreVerses ] = useState(false);
   const [ areThereMorePreviousVerses, setAreThereMorePreviousVerses ] = useState(false);
   const [ isLoadingPreviousVerses, setIsLoadingPreviousVerses ] = useState(true);
@@ -22,6 +22,10 @@ const Verse = ({ id, content }) => {
   const [ nextVerses, setNextVerses ] = useState([]);
   const client = buildClient({ timeProvider: defaultTimeProvider, httpGet: wrapFetch(fetch), log: console.info });
   const thisVerseIsPresent = thisVerse && !thisVerse.isMissing;
+
+  useEffect(() => {
+    setThisVerse(content ? deserialize(content) : null);
+  }, [content, id]);
 
   useEffect(async () => {
     if (thisVerse) return;

@@ -1,5 +1,11 @@
 # scroll
 
+## Updating the main logo
+1. Put the new SVG in ./icon-src/icon.svg
+2. Run ./icon-src/update-icon-files.sh (this requires imagemagick installed on
+   your machine)
+3. Commit the updated images
+
 ## CLI Commands
 
 ``` bash

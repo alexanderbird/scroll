@@ -11,6 +11,7 @@ import Verse from '../../routes/verse';
 import Related from '../../routes/related';
 import Word from '../../routes/word';
 import Jump from '../../routes/jump';
+import ReadingList from '../../routes/readingList';
 
 const App = () => (
   <div id='app-router'>
@@ -22,6 +23,7 @@ const App = () => (
         <Related path="/related/:id/:content" />
         <Word path="/word/:id/:verseContent?" />
         <Jump path="/jump/:query?" />
+        <ReadingList path="/readinglist" />
       </Router>
     </ThemeProvider>
   </div>

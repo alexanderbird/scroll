@@ -15,8 +15,12 @@ import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import AirlineStopsIcon from '@mui/icons-material/AirlineStops';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import Badge from '@mui/material/Badge';
 
 import packageJson from '../../../package.json';
+import { useReadingList } from '../../hooks/useReadingList';
+
 const { readmeUrl } = packageJson.content;
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -24,10 +28,10 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   paddingBottom: theme.spacing(2),
   '@media (max-width: 650px)': {
     display: 'grid',
-    gridTemplateColumns: '1fr auto auto auto',
+    gridTemplateColumns: '1fr auto auto auto auto',
     gridTemplateRows: 'auto auto',
     height: 'auto',
-    'button:first-child': {
+    'button:first-of-type': {
       marginLeft: 0,
       marginRight: 'auto',
     },
@@ -43,6 +47,7 @@ const Header = ({ title }) => {
   const [ anchorElement, setAnchorElement ] = useState(null);
   const handleMenu = e => setAnchorElement(e.currentTarget);
   const handleClose = () => setAnchorElement(null);
+  const [ readingList ] = useReadingList();
   return (
     <AppBar position="sticky">
       <StyledToolbar>
@@ -72,6 +77,16 @@ const Header = ({ title }) => {
           href="/jump"
           color="inherit" >
           <AirlineStopsIcon />
+        </IconButton>
+        <IconButton
+          size="large"
+          aria-label="reading list"
+          href="/readinglist"
+          color="inherit" >
+          { readingList?.length
+            ? <Badge badgeContent={readingList.length} color="secondary"><BookmarkIcon /></Badge>
+            : <BookmarkIcon />
+          }
         </IconButton>
         <IconButton
           size="large"

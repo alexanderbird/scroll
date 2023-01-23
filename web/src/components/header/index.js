@@ -38,7 +38,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     'h1': {
       textAlign: 'center',
       gridRow: 2,
-      gridColumn: '1 / span 4',
+      gridColumn: '1 / -1',
     }
   },
 }));

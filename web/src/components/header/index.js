@@ -1,17 +1,24 @@
 import { h } from 'preact';
-import { Link } from 'preact-router/match';
-import style from './style.css';
+
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Link from '@mui/material/Link';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
 import packageJson from '../../../package.json';
 const { readmeUrl } = packageJson.content;
 
 const Header = () => (
-  <header class={style.header}>
-    <Link activeClassName={style.active} href="/"><h1>Scroll Bible</h1></Link>
-    <nav>
-      <Link activeClassName={style.active} href="/about/license">License</Link>
-      <a activeClassName={style.active} href={readmeUrl}>About</a>
-    </nav>
-  </header>
+  <AppBar position="sticky">
+    <Toolbar>
+      <Typography variant="h1" component="h1" sx={{ flexGrow: 1, fontSize: '24px' }}>
+        <Link color="inherit" href="/" sx={{ textDecoration: 'none' }}>Scroll Bible</Link>
+      </Typography>
+      <Button color="inherit" href="/about/license">License</Button>
+      <Button color="inherit" href={readmeUrl}>About</Button>
+    </Toolbar>
+  </AppBar>
 );
 
 export default Header;

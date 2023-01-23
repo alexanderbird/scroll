@@ -2,8 +2,9 @@
   height: 100%;
 }
 
-.page .pageContent {
-  padding: 100px 20px;
+.page main {
+  padding: 0 20px;
+  margin: 0 auto;
   min-height: 100%;
   width: 100%;
   max-width: var(--main-width);

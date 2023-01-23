@@ -6,7 +6,7 @@ import Footer from '../footer';
 export const Page = ({ children }) => (
   <div class={style.page}>
     <Header />
-    <main class={style.pageContent}>
+    <main>
       {children}
     </main>
     <Footer />

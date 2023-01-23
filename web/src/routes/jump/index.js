@@ -1,5 +1,4 @@
 import { h } from 'preact';
-import style from './style.css';
 import { useState } from 'preact/hooks';
 import { jump } from 'scroll-core';
 import { Link } from 'preact-router/match';
@@ -10,6 +9,7 @@ import Alert from '@mui/material/Alert';
 import Input from '@mui/material/Input';
 import { Tiles } from '../../components/tiles';
 import { PageHeader } from '../../components/pageHeader';
+import { Page } from '../../components/page';
 
 const Jump = ({ query: initialQuery }) => {
   const [query, setQuery] = useState(initialQuery);
@@ -25,10 +25,9 @@ const Jump = ({ query: initialQuery }) => {
   const tiles = wrapAsArray(mapJumpToTiles(jumpResults))
 
   return (
-    <div class={style.jump}>
+    <Page>
       <PageHeader><AirlineStopsIcon/> Jump to...</PageHeader>
       <Input
-        class={style.jumpInput}
         fullWidth={true}
         value={query}
         onKeyUp={onInputChange}
@@ -42,7 +41,7 @@ const Jump = ({ query: initialQuery }) => {
           ? <Alert severity="error">No verses or Strong's numbers match <em>{query}</em></Alert>
           : null }
       </div>
-    </div>
+    </Page>
   );
 }
 

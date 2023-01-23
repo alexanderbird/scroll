@@ -7,6 +7,7 @@ import { buildClient, defaultTimeProvider, wrapFetch } from 'scroll-api-sdk';
 import { reference } from 'scroll-core';
 import style from './style.css';
 import { PageHeader } from '../../components/pageHeader';
+import { Page } from '../../components/page';
 import { Tiles } from '../../components/tiles';
 import { Loading } from '../../components/loading';
 import { deserialize } from '../../data-transformations/verse';
@@ -97,7 +98,7 @@ const Verse = ({ id, content }) => {
     ? [ ...previousVerses, { selected: true, ...thisVerse }, ...nextVerses ]
     : [ ...previousVerses, ...nextVerses ];
   return (
-    <div class={style.verse}>
+    <Page>
       <PageHeader>{ (thisVerseIsPresent ? thisVerse.reference : reference(id)).replace(/:.*$/, '') }</PageHeader>
       { !isLoadingPreviousVerses && areThereMorePreviousVerses ? (
         <div class={style.buttonBar}>
@@ -115,7 +116,7 @@ const Verse = ({ id, content }) => {
         </div>
       ) : null }
       <LicenseSummary />
-    </div>
+    </Page>
   );
 }
 

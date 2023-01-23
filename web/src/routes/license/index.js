@@ -1,10 +1,10 @@
 import { h } from 'preact';
-import style from './style.css';
 import { LicenseSummary } from '../../components/license';
+import { Page } from '../../components/page';
 
 const License = () => {
   return (
-    <div class={style.license}>
+    <Page>
       <h3>License information for the Scroll Bible content</h3>
       <LicenseSummary textOnly={true} />
 
@@ -40,7 +40,7 @@ const License = () => {
         </p>
         <p>2020 stable text edition</p>
       </blockquote>
-    </div>
+    </Page>
   );
 };
 

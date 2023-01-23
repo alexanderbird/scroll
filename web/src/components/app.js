@@ -1,20 +1,16 @@
 import { h } from 'preact';
 import { Router } from 'preact-router';
 
-import Header from './header';
-import Footer from './footer';
-
 // Code-splitting is automated for `routes` directory
 import Home from '../routes/home';
-import Jump from '../routes/jump';
-import Verse from '../routes/verse';
-import Word from '../routes/word';
-import Related from '../routes/related';
 import License from '../routes/license';
+import Verse from '../routes/verse';
+import Related from '../routes/related';
+import Word from '../routes/word';
+import Jump from '../routes/jump';
 
 const App = () => (
-  <div id="app">
-    <Header />
+  <div id='app-router'>
     <Router>
       <Home path="/" />
       <License path="/about/license" />
@@ -23,7 +19,6 @@ const App = () => (
       <Word path="/word/:id/:verseContent?" />
       <Jump path="/jump/:query?" />
     </Router>
-    <Footer />
   </div>
 )
 

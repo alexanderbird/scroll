@@ -1,11 +1,14 @@
 import { h } from 'preact';
 import style from './style.css';
+import Header from '../header';
+import Footer from '../footer';
 
-export const Page = ({ title, children }) => (
+export const Page = ({ children }) => (
   <div class={style.page}>
-    <Header title={title} />
-    <div class={style.pageContent}>
+    <Header />
+    <main class={style.pageContent}>
       {children}
-    </div>
+    </main>
+    <Footer />
   </div>
 );

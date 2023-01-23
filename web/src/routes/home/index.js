@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import { useState, useEffect } from 'preact/hooks';
 import { buildClient, defaultTimeProvider, wrapFetch } from 'scroll-api-sdk';
 import style from './style.css';
+import { Page } from '../../components/page';
 import { Tiles } from '../../components/tiles';
 import { Loading } from '../../components/loading';
 import { LicenseSummary } from '../../components/license';
@@ -41,7 +42,7 @@ const Home = () => {
   ];
 
   return (
-    <div class={style.home}>
+    <Page>
       <Tiles items={items} />
       { isLoadingNextVerses ? <Loading/> : (
         <>
@@ -51,7 +52,7 @@ const Home = () => {
           <LicenseSummary />
         </>
       ) }
-    </div>
+    </Page>
   );
 }
 

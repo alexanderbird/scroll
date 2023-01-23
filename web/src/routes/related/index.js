@@ -8,6 +8,7 @@ import style from './style.css';
 import { deserialize } from '../../data-transformations/verse';
 import { useRelatedVerses } from '../../hooks/useRelatedVerses';
 import { LicenseSummary } from '../../components/license';
+import { Page } from '../../components/page';
 
 const Related = ({ id, content }) => {
   const verse = deserialize(content);
@@ -25,7 +26,7 @@ const Related = ({ id, content }) => {
     ...relatedVerses
   ];
   return (
-    <div class={style.word}>
+    <Page>
       <br/>
       <PageHeader>Verses related to {verse.reference}</PageHeader>
       <Tiles selectedWord={id} items={items} />
@@ -36,7 +37,7 @@ const Related = ({ id, content }) => {
         </div>
       ) }
       <LicenseSummary />
-    </div>
+    </Page>
   );
 }
 

@@ -6,6 +6,7 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import Button from '@mui/material/Button';
 import { Loading } from '../../components/loading';
 import { PageHeader } from '../../components/pageHeader';
+import { Page } from '../../components/page';
 import style from './style.css';
 import { deserialize } from '../../data-transformations/verse';
 import { useRelatedVerses } from '../../hooks/useRelatedVerses';
@@ -36,7 +37,7 @@ const Word = ({ id, verseContent }) => {
   backgroundItems.push({ ...strongsEntry, contextVerse, selected: true });
   const items = [ ...backgroundItems, ...relatedVerses ];
   return (
-    <div class={style.word}>
+    <Page>
       <br/>
       <PageHeader>Strong's {id} {strongsEntry.data.transliteration ? `(${strongsEntry.data.transliteration})` : ''}</PageHeader>
       <Tiles selectedWord={id} items={items} />
@@ -47,7 +48,7 @@ const Word = ({ id, verseContent }) => {
         </div>
       ) }
       <LicenseSummary />
-    </div>
+    </Page>
   );
 }
 

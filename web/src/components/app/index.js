@@ -7,7 +7,7 @@ import { theme } from './theme';
 // Code-splitting is automated for `routes` directory
 import Home from '../../routes/home';
 import License from '../../routes/license';
-import Feedback from '../../routes/Feedback';
+import Feedback from '../../routes/feedback';
 import Verse from '../../routes/verse';
 import Related from '../../routes/related';
 import Word from '../../routes/word';

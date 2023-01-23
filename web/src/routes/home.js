@@ -7,12 +7,11 @@ import { buildClient, defaultTimeProvider, wrapFetch } from 'scroll-api-sdk';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { Page } from './../components/page';
 import { Tiles } from './../components/tiles';
 import { Loading } from './../components/loading';
 import { LicenseSummary } from './../components/license';
 
-const Home = () => {
+const Home = ({ setPageTitle }) => {
   const [ verses, setVerses ] = useState([]);
   const [ isLoadingNextVerses, setIsLoadingNextVerses ] = useState(true);
   const [ nextPage, setNextPage ] = useState(null);
@@ -38,8 +37,9 @@ const Home = () => {
       setIsLoadingNextVerses(false);
   };
 
+  setPageTitle('Scroll Bible');
   return (
-    <Page title="Scroll Bible">
+    <>
       <Tiles items={verses} />
       { isLoadingNextVerses ? <Loading/> : (
         <>
@@ -49,7 +49,7 @@ const Home = () => {
           <LicenseSummary />
         </>
       ) }
-    </Page>
+    </>
   );
 }
 

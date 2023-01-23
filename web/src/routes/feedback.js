@@ -1,10 +1,9 @@
 import { h } from 'preact';
 
-import { Page } from '../components/page';
-
-const Feedback = () => {
+const Feedback = ({ setPageTitle }) => {
+  setPageTitle("App Feedback");
   return (
-    <Page title="App Feedback">
+    <>
       <p>
         You can contact Alex at <a
         href="mailto:feedback@scrollbible.app">feedback@scrollbible.app</a> to
@@ -19,7 +18,7 @@ const Feedback = () => {
           <li>etc.</li>
         </ul>
       </p>
-    </Page>
+    </>
   );
 };
 

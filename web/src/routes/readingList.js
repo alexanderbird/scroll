@@ -13,7 +13,6 @@ import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 
 import { Tiles } from '../components/tiles';
-import { Page } from '../components/page';
 import { ShareButton } from '../components/share';
 import { useReadingList } from '../hooks/useReadingList';
 
@@ -21,7 +20,7 @@ const EmptyReadingListBlurb = () => (
   <p><Link href="/">Browse to a verse</Link> to add it to your reading list</p>
 );
 
-const ReadingList = ({ query: initialQuery }) => {
+const ReadingList = ({ setPageTitle }) => {
   const [emptiedItems, setEmptiedItems] = useState(null);
   const [readingList, addToReadingList, clearReadingList, setReadingList] = useReadingList();
   const isEmpty = !readingList || !readingList.length;
@@ -36,8 +35,9 @@ const ReadingList = ({ query: initialQuery }) => {
   const readingListText = readingList
     .map(x => `${x.reference} — ${x.data.slice(0, 3).map(d => d.t.trim()).join(' ')}...`)
     .join('\n');
+  setPageTitle(isEmpty ? 'Reading List (empty)' : 'Reading List');
   return (
-    <Page title={ isEmpty ? 'Reading List (empty)' : 'Reading List'}>
+    <>
       { isEmpty ? <EmptyReadingListBlurb /> : (<>
         <Stack direction='row' sx={{ justifyContent: 'flex-end' }}>
           <ShareButton text={readingListText}>{onShare => (
@@ -56,7 +56,7 @@ const ReadingList = ({ query: initialQuery }) => {
           </Stack>
         </Alert>
       </Snackbar>
-    </Page>
+    </>
   );
 }
 

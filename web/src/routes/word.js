@@ -9,12 +9,11 @@ import Stack from '@mui/material/Stack';
 
 import { Tiles } from '../components/tiles';
 import { Loading } from '../components/loading';
-import { Page } from '../components/page';
 import { LicenseSummary } from '../components/license';
 import { deserialize } from '../data-transformations/verse';
 import { useRelatedVerses } from '../hooks/useRelatedVerses';
 
-const Word = ({ id, verseContent }) => {
+const Word = ({ id, verseContent, setPageTitle }) => {
   const contextVerse = verseContent ? deserialize(verseContent) : false;
   const [strongsEntry, setStrongsEntry] = useState({ data: "Strongs " + id + " (loading)", type: "TEXT", related: "" });
   const client = buildClient({ timeProvider: defaultTimeProvider, httpGet: wrapFetch(fetch), log: console.info });
@@ -38,8 +37,9 @@ const Word = ({ id, verseContent }) => {
   const backgroundItems = contextVerse ? [{ ...contextVerse, doExplodeVerseSegments: true }] : [];
   backgroundItems.push({ ...strongsEntry, contextVerse, selected: true });
   const items = [ ...backgroundItems, ...relatedVerses ];
+  setPageTitle(`Strong's ${id} ${strongsEntry.data.transliteration ? `(${strongsEntry.data.transliteration})` : ''}`);
   return (
-    <Page title={`Strong's ${id} ${strongsEntry.data.transliteration ? `(${strongsEntry.data.transliteration})` : ''}`}>
+    <>
       <Tiles selectedWord={id} items={items} />
       { isLoadingRelatedVerses ? <Loading /> : null }
       { !canLoadMoreRelatedVerses ? null : (
@@ -48,7 +48,7 @@ const Word = ({ id, verseContent }) => {
         </Stack>
       ) }
       <LicenseSummary />
-    </Page>
+    </>
   );
 }
 

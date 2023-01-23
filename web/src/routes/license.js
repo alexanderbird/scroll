@@ -1,11 +1,11 @@
 import { h } from 'preact';
 
 import { LicenseSummary } from '../components/license';
-import { Page } from '../components/page';
 
-const License = () => {
+const License = ({ setPageTitle }) => {
+  setPageTitle('Scroll Bible License Information');
   return (
-    <Page title="Scroll Bible License Information">
+    <>
       <LicenseSummary textOnly={true} />
 
       <h4>World English Bible</h4>
@@ -40,7 +40,7 @@ const License = () => {
         </p>
         <p>2020 stable text edition</p>
       </blockquote>
-    </Page>
+    </>
   );
 };
 

@@ -20,6 +20,7 @@ import Badge from '@mui/material/Badge';
 
 import packageJson from '../../../package.json';
 import { useReadingList } from '../../hooks/useReadingList';
+import { RandomIcon } from '../../components/icon/random';
 
 const { readmeUrl } = packageJson.content;
 
@@ -28,6 +29,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   paddingBottom: theme.spacing(2),
   'h1': {
     textAlign: 'center',
+    paddingLeft: 'calc(48px * 4)',
   },
   '@media (max-width: 650px)': {
     display: 'grid',
@@ -39,6 +41,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
       marginRight: 'auto',
     },
     'h1': {
+      paddingLeft: 0,
       gridRow: 2,
       gridColumn: '1 / -1',
     }
@@ -71,7 +74,7 @@ const Header = ({ title }) => {
           aria-label="home page verse list"
           href="/"
           color="inherit" >
-          <FormatListBulletedIcon />
+          <RandomIcon />
         </IconButton>
         <IconButton
           size="large"

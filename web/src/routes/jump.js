@@ -11,9 +11,8 @@ import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { Tiles } from '../components/tiles';
-import { Page } from '../components/page';
 
-const Jump = ({ query: initialQuery }) => {
+const Jump = ({ query: initialQuery, setPageTitle }) => {
   const [query, setQuery] = useState(initialQuery);
 
   const onInputChange = e => {
@@ -26,8 +25,9 @@ const Jump = ({ query: initialQuery }) => {
   const jumpResults = attemptToSearch ? jump(query) : false;
   const tiles = wrapAsArray(mapJumpToTiles(jumpResults))
 
+  setPageTitle("Jump to...");
   return (
-    <Page title="Jump to...">
+    <>
       <Input
         fullWidth={true}
         value={query}
@@ -44,7 +44,7 @@ const Jump = ({ query: initialQuery }) => {
           ? <Alert severity="error">No verses or Strong's numbers match <em>{query}</em></Alert>
           : null }
       </div>
-    </Page>
+    </>
   );
 }
 

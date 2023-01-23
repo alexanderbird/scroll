@@ -8,14 +8,13 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-import { Page } from '../components/page';
 import { Tiles } from '../components/tiles';
 import { Loading } from '../components/loading';
 import { deserialize } from '../data-transformations/verse';
 import { LicenseSummary } from '../components/license';
 import { useReadingList } from '../hooks/useReadingList';
 
-const Verse = ({ id, content }) => {
+const Verse = ({ id, content, setPageTitle }) => {
   const [ thisVerse, setThisVerse ] = useState(null);
   const [ areThereMoreVerses, setAreThereMoreVerses ] = useState(false);
   const [ areThereMorePreviousVerses, setAreThereMorePreviousVerses ] = useState(false);
@@ -105,8 +104,9 @@ const Verse = ({ id, content }) => {
   const verses = thisVerse
     ? [ ...previousVerses, { selected: true, ...thisVerse }, ...nextVerses ]
     : [ ...previousVerses, ...nextVerses ];
+  setPageTitle((thisVerseIsPresent ? thisVerse.reference : reference(id)).replace(/:.*$/, ''));
   return (
-    <Page title={ (thisVerseIsPresent ? thisVerse.reference : reference(id)).replace(/:.*$/, '') }>
+    <>
       { !isLoadingPreviousVerses && areThereMorePreviousVerses ? (
         <Stack direction='row' justifyContent='center'>
           <Button onClick={addAnotherPreviousPage}>
@@ -123,7 +123,7 @@ const Verse = ({ id, content }) => {
         </Stack>
       ) : null }
       <LicenseSummary />
-    </Page>
+    </>
   );
 }
 

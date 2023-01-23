@@ -12,9 +12,8 @@ import { Loading } from '../components/loading';
 import { deserialize } from '../data-transformations/verse';
 import { useRelatedVerses } from '../hooks/useRelatedVerses';
 import { LicenseSummary } from '../components/license';
-import { Page } from '../components/page';
 
-const Related = ({ id, content }) => {
+const Related = ({ id, content, setPageTitle }) => {
   const verse = deserialize(content);
   const client = buildClient({ timeProvider: defaultTimeProvider, httpGet: wrapFetch(fetch), log: console.info });
 
@@ -29,8 +28,9 @@ const Related = ({ id, content }) => {
     { ...verse, selected: true },
     ...relatedVerses
   ];
+  setPageTitle(`related to ${verse.reference}`);
   return (
-    <Page title={`related to ${verse.reference}`}>
+    <>
       <Tiles selectedWord={id} items={items} />
       { isLoadingRelatedVerses ? <Loading /> : null }
       { !canLoadMoreRelatedVerses ? null : (
@@ -39,7 +39,7 @@ const Related = ({ id, content }) => {
         </Stack>
       ) }
       <LicenseSummary />
-    </Page>
+    </>
   );
 }
 

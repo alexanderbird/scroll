@@ -36,7 +36,6 @@ const ReadingList = ({ query: initialQuery }) => {
   const readingListText = readingList
     .map(x => `${x.reference} — ${x.data.slice(0, 3).map(d => d.t.trim()).join(' ')}...`)
     .join('\n');
-  console.log(readingListText);
   return (
     <Page title={ isEmpty ? 'Reading List (empty)' : 'Reading List'}>
       { isEmpty ? <EmptyReadingListBlurb /> : (<>

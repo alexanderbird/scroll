@@ -118,6 +118,9 @@ const Header = ({ title }) => {
           <MenuItem onClick={handleClose}>
             <Link href="/about/license" sx={{ textDecoration: 'none' }}>License</Link>
           </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link href="/about/feedback" sx={{ textDecoration: 'none' }}>Feedback</Link>
+          </MenuItem>
         </Menu>
       </StyledToolbar>
     </AppBar>

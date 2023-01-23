@@ -1,8 +1,4 @@
-.page {
-  height: 100%;
-}
-
-.page main {
+.pageMain {
   padding: 40px 20px;
   margin: 0 auto;
   min-height: 100%;

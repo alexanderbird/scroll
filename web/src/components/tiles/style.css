@@ -17,13 +17,15 @@
   flex-direction: row;
   text-decoration: inherit;
   color: inherit;
+  --border-color: transparent;
+  border: 1px solid var(--border-color);
 }
 
 .tile.tileSelected {
   --tile-selected-padding: 10px;
   --tile-selected-border: 2px;
   font-weight: bold;
-  border: var(--tile-selected-border) solid var(--color-volume-9);
+  border: var(--tile-selected-border) solid var(--color-secondary);
   padding: var(--tile-selected-padding);
   margin-bottom: 5px;
   margin-top: 5px;
@@ -31,10 +33,10 @@
 
 .tile .tileReference {
   font-size: 0.8rem;
-  color: var(--color-volume-2);
+  color: var(--color-light-gray);
   padding-right: 10px;
   padding-left: 10px;
-  background-color: var(--color-volume-1);
+  background-color: var(--color-dark-gray);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -71,7 +73,8 @@
 
 .tile.linkTile,
 .tile .tileText {
-  border: 1px solid var(--color-volume-1);
+  --inner-border-color: var(--color-dark-gray);
+  border: 1px solid var(--inner-border-color);
   padding: 5px 10px;
 }
 
@@ -82,8 +85,14 @@
 }
 
 @media (hover: hover) {
+  .tile:not(.tileSelected):hover {
+    --border-color: var(--color-secondary);
+  }
+
   .tile:not(.tileSelected):hover .tileText:not(.tileStrongs) {
-    background-color: #0082;
+    --inner-border-color: var(--color-secondary);
+    background-color: var(--color-secondary);
+    color: var(--color-secondary-text);
   }
 }
 
@@ -99,7 +108,7 @@
 }
 
 .strongsContainer blockquote {
-  border-left: 2px solid var(--color-volume-1);
+  border-left: 2px solid var(--color-dark-gray);
   font-weight: bold;
   padding-top: 5px;
   padding-left: 10px;
@@ -119,12 +128,14 @@
 
 @media (hover: hover) {
   .tileStrongs a.verseSegment:hover {
-    background-color: #ff04;
+    background-color: var(--color-secondary);
+    color: var(--color-secondary-text);
   }
 }
 
-.selectedWord {
-  background-color: #ff04;
+.tileStrongs a.verseSegment.selectedWord {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-text);
   font-weight: bold;
 }
 
@@ -132,7 +143,7 @@
 }
 .verseSegment {
   padding: 2px 4px;
-  border-color: var(--color-volume-1);
+  border-color: var(--color-dark-gray);
   border-style: solid;
   border-width: 0;
   border-bottom-width: 1px;

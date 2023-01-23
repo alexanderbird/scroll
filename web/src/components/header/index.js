@@ -26,6 +26,9 @@ const { readmeUrl } = packageJson.content;
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   paddingTop: theme.spacing(1),
   paddingBottom: theme.spacing(2),
+  'h1': {
+    textAlign: 'center',
+  },
   '@media (max-width: 650px)': {
     display: 'grid',
     gridTemplateColumns: '1fr auto auto auto auto',
@@ -36,7 +39,6 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
       marginRight: 'auto',
     },
     'h1': {
-      textAlign: 'center',
       gridRow: 2,
       gridColumn: '1 / -1',
     }

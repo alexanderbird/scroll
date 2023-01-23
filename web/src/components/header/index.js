@@ -60,43 +60,41 @@ const Header = ({ title }) => {
   return (
     <AppBar position="sticky">
       <StyledToolbar>
-        <Match path="/">{({ matches }) => matches ? <div/> : (
-          <IconButton
-            size="large"
-            aria-label="previous page"
-            onClick={() => window.history.back()}
-            color="inherit"
-            >
-            <ArrowBackIcon />
-          </IconButton>
-        )}</Match>
+        <IconButton
+          size="large"
+          aria-label="previous page"
+          onClick={() => window.history.back()}
+          color="inherit"
+          >
+          <ArrowBackIcon color="secondary"/>
+        </IconButton>
         <Typography variant="h1" component="h1" sx={{ flexGrow: 1, fontSize: '24px' }}>
           { title }
         </Typography>
-        <IconButton
+        <Match path="/">{({ matches }) => (<IconButton
           size="large"
           aria-label="home page verse list"
           href="/"
           color="inherit" >
-          <RandomIcon />
-        </IconButton>
-        <IconButton
+          <RandomIcon color={matches ? 'primaryContrastText' : 'secondary'} />
+        </IconButton>)}</Match>
+        <Match path="/jump">{({ matches }) => (<IconButton
           size="large"
           aria-label="jump to verse or word"
           href="/jump"
           color="inherit" >
-          <AirlineStopsIcon />
-        </IconButton>
-        <IconButton
+          <AirlineStopsIcon color={matches ? 'primaryContrastText' : 'secondary'} />
+        </IconButton>)}</Match>
+        <Match path="/readinglist">{({ matches }) => (<IconButton
           size="large"
           aria-label="reading list"
           href="/readinglist"
           color="inherit" >
           { readingList?.length
-            ? <Badge badgeContent={readingList.length} color="secondary"><BookmarkIcon /></Badge>
-            : <BookmarkIcon />
+            ? <Badge badgeContent={readingList.length} color="secondary"><BookmarkIcon color={matches ? 'primaryContrastText' : 'secondary'} /></Badge>
+            : <BookmarkIcon color={matches ? 'primaryContrastText' : 'secondary'} />
           }
-        </IconButton>
+        </IconButton>)}</Match>
         <IconButton
           size="large"
           aria-label="menu"
@@ -104,7 +102,7 @@ const Header = ({ title }) => {
           aria-haspopup="true"
           onClick={handleMenu}
           color="inherit" >
-          <HelpCenterIcon />
+          <HelpCenterIcon color='secondary'/>
         </IconButton>
         <Menu
           id="menu-appbar"

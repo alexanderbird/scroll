@@ -46,7 +46,7 @@ const Header = ({ title }) => {
   return (
     <AppBar position="sticky">
       <StyledToolbar>
-        <Match path="/">{({ matches }) => matches ? null : (
+        <Match path="/">{({ matches }) => matches ? <div/> : (
           <IconButton
             size="large"
             aria-label="previous page"

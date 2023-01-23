@@ -12,13 +12,11 @@ import { Loading } from '../components/loading';
 import { LicenseSummary } from '../components/license';
 import { deserialize } from '../data-transformations/verse';
 import { useRelatedVerses } from '../hooks/useRelatedVerses';
-import { useReadingList } from '../hooks/useReadingList';
 
 const Word = ({ id, verseContent, setPageTitle }) => {
-  const [contextVerse, setContextVerse] = useState(false);
+  const contextVerse = verseContent ? deserialize(verseContent) : false;
   const [strongsEntry, setStrongsEntry] = useState({ data: "Strongs " + id + " (loading)", type: "TEXT", related: "" });
   const client = buildClient({ timeProvider: defaultTimeProvider, httpGet: wrapFetch(fetch), log: console.info });
-  const [, addToReadingList] = useReadingList();
 
   const relatedIds = contextVerse
     ? strongsEntry.related.split(',').filter(x => x !== contextVerse.id).join(',')
@@ -35,14 +33,6 @@ const Word = ({ id, verseContent, setPageTitle }) => {
     const result = await client.getItem({ id, language: 'en', translation: 'strongs', document: 'reference' });
     setStrongsEntry(result || { isMissing: true, type: 'ERROR', data: `Strong's ${id} not found`, related: "" });
   }, [id]);
-
-  useEffect(() => {
-    const contextVerse = verseContent ? deserialize(verseContent) : false;
-    setContextVerse(contextVerse);
-    if (contextVerse && contextVerse.type === 'TEXT_WITH_STRONGS') {
-      addToReadingList(contextVerse);
-    }
-  }, [verseContent]);
 
   const backgroundItems = contextVerse ? [{ ...contextVerse, doExplodeVerseSegments: true }] : [];
   backgroundItems.push({ ...strongsEntry, contextVerse, selected: true });

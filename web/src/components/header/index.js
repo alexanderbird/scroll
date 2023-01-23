@@ -95,15 +95,15 @@ const Header = ({ title }) => {
             : <BookmarkIcon color={matches ? 'primaryContrastText' : 'secondary'} />
           }
         </IconButton>)}</Match>
-        <IconButton
+        <Match path="/about/:rest?">{({ matches }) => (<IconButton
           size="large"
           aria-label="menu"
           aria-controls="menu-appbar"
           aria-haspopup="true"
           onClick={handleMenu}
           color="inherit" >
-          <HelpCenterIcon color='secondary'/>
-        </IconButton>
+          <HelpCenterIcon color={matches ? 'primaryContrastText' : 'secondary'}/>
+        </IconButton>)}</Match>
         <Menu
           id="menu-appbar"
           anchorElement={anchorElement}

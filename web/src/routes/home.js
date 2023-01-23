@@ -38,14 +38,9 @@ const Home = () => {
       setIsLoadingNextVerses(false);
   };
 
-  const items = [
-    { type: 'LINK', data: { href: '/jump', text: 'Jump to verse or word' } },
-    ...verses
-  ];
-
   return (
     <Page title="Scroll Bible">
-      <Tiles items={items} />
+      <Tiles items={verses} />
       { isLoadingNextVerses ? <Loading/> : (
         <>
           <Stack direction='row' justifyContent='center'>

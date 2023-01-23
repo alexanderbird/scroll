@@ -26,10 +26,14 @@ const { readmeUrl } = packageJson.content;
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   paddingTop: theme.spacing(1),
-  paddingBottom: theme.spacing(2),
+  paddingBottom: theme.spacing(1),
   'h1': {
     textAlign: 'center',
-    paddingLeft: 'calc(48px * 4)',
+  },
+  '@media (min-width: 1000px)': {
+    'h1': {
+      paddingLeft: 'calc(48px * 4)',
+    },
   },
   '@media (max-width: 650px)': {
     display: 'grid',

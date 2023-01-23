@@ -41,9 +41,9 @@ const ReadingList = ({ setPageTitle }) => {
       { isEmpty ? <EmptyReadingListBlurb /> : (<>
         <Stack direction='row' sx={{ justifyContent: 'flex-end' }}>
           <ShareButton text={readingListText}>{onShare => (
-            <Button size="small" fullWidth={true} onClick={onShare}><IosShareIcon/>Export</Button>
+            <Button size="small" sx={{ color: 'var(--color-primary-light)' }} fullWidth={true} onClick={onShare}><IosShareIcon/>Export</Button>
           )}</ShareButton>
-          <Button onClick={emptyReadingList} ><DeleteIcon/>Clear</Button>
+          <Button onClick={emptyReadingList} sx={{ color: 'var(--color-primary-light)' }}><DeleteIcon/>Clear</Button>
         </Stack>
         <Tiles items={readingList} />
       </>)}

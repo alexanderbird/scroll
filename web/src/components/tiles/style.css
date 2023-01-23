@@ -25,7 +25,7 @@
   --tile-selected-padding: 10px;
   --tile-selected-border: 2px;
   font-weight: bold;
-  border: var(--tile-selected-border) solid var(--color-secondary);
+  border: var(--tile-selected-border) solid var(--color-secondary-light);
   padding: var(--tile-selected-padding);
   margin-bottom: 5px;
   margin-top: 5px;
@@ -86,12 +86,12 @@
 
 @media (hover: hover) {
   .tile:not(.tileSelected):hover {
-    --border-color: var(--color-secondary);
+    --border-color: var(--color-secondary-light);
   }
 
   .tile:not(.tileSelected):hover .tileText:not(.tileStrongs) {
-    --inner-border-color: var(--color-secondary);
-    background-color: var(--color-secondary);
+    --inner-border-color: var(--color-secondary-light);
+    background-color: var(--color-secondary-light);
     color: var(--color-secondary-text);
   }
 }
@@ -128,13 +128,13 @@
 
 @media (hover: hover) {
   .tileStrongs a.verseSegment:hover {
-    background-color: var(--color-secondary);
+    background-color: var(--color-secondary-light);
     color: var(--color-secondary-text);
   }
 }
 
 .tileStrongs a.verseSegment.selectedWord {
-  background-color: var(--color-secondary);
+  background-color: var(--color-secondary-light);
   color: var(--color-secondary-text);
   font-weight: bold;
 }

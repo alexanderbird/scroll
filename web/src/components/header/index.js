@@ -66,43 +66,49 @@ const Header = ({ title }) => {
           onClick={() => window.history.back()}
           color="inherit"
           >
-          <ArrowBackIcon color="secondary"/>
+          <ArrowBackIcon />
         </IconButton>
         <Typography variant="h1" component="h1" sx={{ flexGrow: 1, fontSize: '24px' }}>
           { title }
         </Typography>
         <Match path="/">{({ matches }) => (<IconButton
+          sx={{ backgroundColor: matches ? 'var(--color-primary-light)' : undefined }}
           size="large"
           aria-label="home page verse list"
           href="/"
           color="inherit" >
-          <RandomIcon color={matches ? 'primaryContrastText' : 'secondary'} />
+          <RandomIcon />
         </IconButton>)}</Match>
         <Match path="/jump">{({ matches }) => (<IconButton
+          sx={{ backgroundColor: matches ? 'var(--color-primary-light)' : undefined }}
           size="large"
           aria-label="jump to verse or word"
           href="/jump"
           color="inherit" >
-          <AirlineStopsIcon color={matches ? 'primaryContrastText' : 'secondary'} />
+          <AirlineStopsIcon />
         </IconButton>)}</Match>
         <Match path="/readinglist">{({ matches }) => (<IconButton
+          sx={{ backgroundColor: matches ? 'var(--color-primary-light)' : undefined }}
           size="large"
           aria-label="reading list"
           href="/readinglist"
           color="inherit" >
-          { readingList?.length
-            ? <Badge badgeContent={readingList.length} color="secondary"><BookmarkIcon color={matches ? 'primaryContrastText' : 'secondary'} /></Badge>
-            : <BookmarkIcon color={matches ? 'primaryContrastText' : 'secondary'} />
-          }
+          <Badge
+            invisible={!readingList?.length || matches}
+            badgeContent={readingList?.length}
+            color="secondary">
+            <BookmarkIcon />
+          </Badge>
         </IconButton>)}</Match>
         <Match path="/about/:rest?">{({ matches }) => (<IconButton
+          sx={{ backgroundColor: matches ? 'var(--color-primary-light)' : undefined }}
           size="large"
           aria-label="menu"
           aria-controls="menu-appbar"
           aria-haspopup="true"
           onClick={handleMenu}
           color="inherit" >
-          <HelpCenterIcon color={matches ? 'primaryContrastText' : 'secondary'}/>
+          <HelpCenterIcon />
         </IconButton>)}</Match>
         <Menu
           id="menu-appbar"

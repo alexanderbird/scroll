@@ -9,7 +9,6 @@ import Stack from '@mui/material/Stack';
 
 import { Tiles } from '../components/tiles';
 import { Loading } from '../components/loading';
-import { PageHeader } from '../components/pageHeader';
 import { deserialize } from '../data-transformations/verse';
 import { useRelatedVerses } from '../hooks/useRelatedVerses';
 import { LicenseSummary } from '../components/license';
@@ -31,9 +30,7 @@ const Related = ({ id, content }) => {
     ...relatedVerses
   ];
   return (
-    <Page>
-      <br/>
-      <PageHeader>Verses related to {verse.reference}</PageHeader>
+    <Page title={`Verses related to ${verse.reference}`}>
       <Tiles selectedWord={id} items={items} />
       { isLoadingRelatedVerses ? <Loading /> : null }
       { !canLoadMoreRelatedVerses ? null : (

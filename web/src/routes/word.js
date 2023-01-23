@@ -9,7 +9,6 @@ import Stack from '@mui/material/Stack';
 
 import { Tiles } from '../components/tiles';
 import { Loading } from '../components/loading';
-import { PageHeader } from '../components/pageHeader';
 import { Page } from '../components/page';
 import { LicenseSummary } from '../components/license';
 import { deserialize } from '../data-transformations/verse';
@@ -40,9 +39,7 @@ const Word = ({ id, verseContent }) => {
   backgroundItems.push({ ...strongsEntry, contextVerse, selected: true });
   const items = [ ...backgroundItems, ...relatedVerses ];
   return (
-    <Page>
-      <br/>
-      <PageHeader>Strong's {id} {strongsEntry.data.transliteration ? `(${strongsEntry.data.transliteration})` : ''}</PageHeader>
+    <Page title={`Strong's ${id} ${strongsEntry.data.transliteration ? `(${strongsEntry.data.transliteration})` : ''}`}>
       <Tiles selectedWord={id} items={items} />
       { isLoadingRelatedVerses ? <Loading /> : null }
       { !canLoadMoreRelatedVerses ? null : (

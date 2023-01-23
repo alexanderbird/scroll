@@ -5,8 +5,7 @@ import { Page } from '../components/page';
 
 const License = () => {
   return (
-    <Page>
-      <h3>License information for the Scroll Bible content</h3>
+    <Page title="Scroll Bible License Information">
       <LicenseSummary textOnly={true} />
 
       <h4>World English Bible</h4>

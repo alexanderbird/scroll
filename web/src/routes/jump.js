@@ -8,9 +8,9 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 import AirlineStopsIcon from '@mui/icons-material/AirlineStops';
 import Alert from '@mui/material/Alert';
 import Input from '@mui/material/Input';
+import InputAdornment from '@mui/material/InputAdornment';
 
 import { Tiles } from '../components/tiles';
-import { PageHeader } from '../components/pageHeader';
 import { Page } from '../components/page';
 
 const Jump = ({ query: initialQuery }) => {
@@ -27,12 +27,13 @@ const Jump = ({ query: initialQuery }) => {
   const tiles = wrapAsArray(mapJumpToTiles(jumpResults))
 
   return (
-    <Page>
-      <PageHeader><AirlineStopsIcon/> Jump to...</PageHeader>
+    <Page title="Jump to...">
       <Input
         fullWidth={true}
         value={query}
+        autoFocus={true}
         onKeyUp={onInputChange}
+        startAdornment={<InputAdornment position="start"><AirlineStopsIcon /></InputAdornment>}
         placeholder="verse reference or Strong's number"/>
       <div>
         <Tiles items={tiles} />

@@ -1,7 +1,9 @@
 import { h } from 'preact';
 import { useState, useRef } from 'preact/hooks';
+import Match from 'preact-router/match';
 
 import AppBar from '@mui/material/AppBar';
+import { styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
@@ -12,19 +14,50 @@ import MenuItem from '@mui/material/MenuItem';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import AirlineStopsIcon from '@mui/icons-material/AirlineStops';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import packageJson from '../../../package.json';
 const { readmeUrl } = packageJson.content;
 
-const Header = () => {
+const StyledToolbar = styled(Toolbar)(({ theme }) => ({
+  paddingTop: theme.spacing(1),
+  paddingBottom: theme.spacing(2),
+  '@media (max-width: 650px)': {
+    display: 'grid',
+    gridTemplateColumns: '1fr auto auto auto',
+    gridTemplateRows: 'auto auto',
+    height: 'auto',
+    'button:first-child': {
+      marginLeft: 0,
+      marginRight: 'auto',
+    },
+    'h1': {
+      textAlign: 'center',
+      gridRow: 2,
+      gridColumn: '1 / span 4',
+    }
+  },
+}));
+
+const Header = ({ title }) => {
   const [ anchorElement, setAnchorElement ] = useState(null);
   const handleMenu = e => setAnchorElement(e.currentTarget);
   const handleClose = () => setAnchorElement(null);
   return (
     <AppBar position="sticky">
-      <Toolbar>
+      <StyledToolbar>
+        <Match path="/">{({ matches }) => matches ? null : (
+          <IconButton
+            size="large"
+            aria-label="previous page"
+            onClick={() => window.history.back()}
+            color="inherit"
+            >
+            <ArrowBackIcon />
+          </IconButton>
+        )}</Match>
         <Typography variant="h1" component="h1" sx={{ flexGrow: 1, fontSize: '24px' }}>
-          <Link color="inherit" href="/" sx={{ textDecoration: 'none' }}>Scroll Bible</Link>
+          { title }
         </Typography>
         <IconButton
           size="large"
@@ -71,7 +104,7 @@ const Header = () => {
             <Link href="/about/license" sx={{ textDecoration: 'none' }}>License</Link>
           </MenuItem>
         </Menu>
-      </Toolbar>
+      </StyledToolbar>
     </AppBar>
   );
 }

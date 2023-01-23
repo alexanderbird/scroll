@@ -44,7 +44,7 @@ const Home = () => {
   ];
 
   return (
-    <Page>
+    <Page title="Scroll Bible">
       <Tiles items={items} />
       { isLoadingNextVerses ? <Loading/> : (
         <>

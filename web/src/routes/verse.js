@@ -8,7 +8,6 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-import { PageHeader } from '../components/pageHeader';
 import { Page } from '../components/page';
 import { Tiles } from '../components/tiles';
 import { Loading } from '../components/loading';
@@ -100,8 +99,7 @@ const Verse = ({ id, content }) => {
     ? [ ...previousVerses, { selected: true, ...thisVerse }, ...nextVerses ]
     : [ ...previousVerses, ...nextVerses ];
   return (
-    <Page>
-      <PageHeader>{ (thisVerseIsPresent ? thisVerse.reference : reference(id)).replace(/:.*$/, '') }</PageHeader>
+    <Page title={ (thisVerseIsPresent ? thisVerse.reference : reference(id)).replace(/:.*$/, '') }>
       { !isLoadingPreviousVerses && areThereMorePreviousVerses ? (
         <Stack direction='row' justifyContent='center'>
           <Button onClick={addAnotherPreviousPage}>

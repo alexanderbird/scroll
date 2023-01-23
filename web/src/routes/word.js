@@ -1,16 +1,19 @@
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
+
 import { buildClient, defaultTimeProvider, wrapFetch } from 'scroll-api-sdk';
-import { Tiles } from '../../components/tiles';
+
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import Button from '@mui/material/Button';
-import { Loading } from '../../components/loading';
-import { PageHeader } from '../../components/pageHeader';
-import { Page } from '../../components/page';
-import style from './style.css';
-import { deserialize } from '../../data-transformations/verse';
-import { useRelatedVerses } from '../../hooks/useRelatedVerses';
-import { LicenseSummary } from '../../components/license';
+import Stack from '@mui/material/Stack';
+
+import { Tiles } from '../components/tiles';
+import { Loading } from '../components/loading';
+import { PageHeader } from '../components/pageHeader';
+import { Page } from '../components/page';
+import { LicenseSummary } from '../components/license';
+import { deserialize } from '../data-transformations/verse';
+import { useRelatedVerses } from '../hooks/useRelatedVerses';
 
 const Word = ({ id, verseContent }) => {
   const contextVerse = verseContent ? deserialize(verseContent) : false;
@@ -43,9 +46,9 @@ const Word = ({ id, verseContent }) => {
       <Tiles selectedWord={id} items={items} />
       { isLoadingRelatedVerses ? <Loading /> : null }
       { !canLoadMoreRelatedVerses ? null : (
-        <div class={style.buttonBar}>
+        <Stack direction='row' justifyContent='center'>
           <Button onClick={loadNextPageOfRelatedVerses}><KeyboardDoubleArrowDownIcon/></Button>
-        </div>
+        </Stack>
       ) }
       <LicenseSummary />
     </Page>

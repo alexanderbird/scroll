@@ -1,17 +1,19 @@
 import { h } from 'preact';
+import { useState, useEffect } from 'preact/hooks';
+import { reference } from 'scroll-core';
+import { buildClient, defaultTimeProvider, wrapFetch } from 'scroll-api-sdk';
+
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import Button from '@mui/material/Button';
-import { useState, useEffect } from 'preact/hooks';
-import { buildClient, defaultTimeProvider, wrapFetch } from 'scroll-api-sdk';
-import { reference } from 'scroll-core';
-import style from './style.css';
-import { PageHeader } from '../../components/pageHeader';
-import { Page } from '../../components/page';
-import { Tiles } from '../../components/tiles';
-import { Loading } from '../../components/loading';
-import { deserialize } from '../../data-transformations/verse';
-import { LicenseSummary } from '../../components/license';
+import Stack from '@mui/material/Stack';
+
+import { PageHeader } from '../components/pageHeader';
+import { Page } from '../components/page';
+import { Tiles } from '../components/tiles';
+import { Loading } from '../components/loading';
+import { deserialize } from '../data-transformations/verse';
+import { LicenseSummary } from '../components/license';
 
 const Verse = ({ id, content }) => {
   const [ thisVerse, setThisVerse ] = useState(null);
@@ -101,19 +103,19 @@ const Verse = ({ id, content }) => {
     <Page>
       <PageHeader>{ (thisVerseIsPresent ? thisVerse.reference : reference(id)).replace(/:.*$/, '') }</PageHeader>
       { !isLoadingPreviousVerses && areThereMorePreviousVerses ? (
-        <div class={style.buttonBar}>
+        <Stack direction='row' justifyContent='center'>
           <Button onClick={addAnotherPreviousPage}>
             <KeyboardDoubleArrowUpIcon />
           </Button>
-        </div>
+        </Stack>
       ) : null }
       { (isLoadingPreviousVerses && thisVerseIsPresent) ? <Loading /> : null }
       <Tiles items={verses} doShowRelated={true}/>
       { isLoadingNextVerses ? <Loading /> : null }
       { !isLoadingNextVerses && areThereMoreVerses ? (
-        <div class={style.buttonBar}>
+        <Stack direction='row' justifyContent='center'>
           <Button onClick={addAnotherPage}><KeyboardDoubleArrowDownIcon/></Button>
-        </div>
+        </Stack>
       ) : null }
       <LicenseSummary />
     </Page>

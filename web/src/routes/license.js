@@ -1,6 +1,7 @@
 import { h } from 'preact';
-import { LicenseSummary } from '../../components/license';
-import { Page } from '../../components/page';
+
+import { LicenseSummary } from '../components/license';
+import { Page } from '../components/page';
 
 const License = () => {
   return (

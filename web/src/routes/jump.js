@@ -1,15 +1,17 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import { jump } from 'scroll-core';
 import { Link } from 'preact-router/match';
+import { jump } from 'scroll-core';
+
 import Button from '@mui/material/Button';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import AirlineStopsIcon from '@mui/icons-material/AirlineStops';
 import Alert from '@mui/material/Alert';
 import Input from '@mui/material/Input';
-import { Tiles } from '../../components/tiles';
-import { PageHeader } from '../../components/pageHeader';
-import { Page } from '../../components/page';
+
+import { Tiles } from '../components/tiles';
+import { PageHeader } from '../components/pageHeader';
+import { Page } from '../components/page';
 
 const Jump = ({ query: initialQuery }) => {
   const [query, setQuery] = useState(initialQuery);

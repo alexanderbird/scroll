@@ -31,7 +31,7 @@ const Related = ({ id, content, setPageTitle }) => {
   setPageTitle(`related to ${verse.reference}`);
   return (
     <>
-      <Tiles selectedWord={id} items={items} />
+      <Tiles items={items} />
       { isLoadingRelatedVerses ? <Loading /> : null }
       { !canLoadMoreRelatedVerses ? null : (
         <Stack direction='row' justifyContent='center'>

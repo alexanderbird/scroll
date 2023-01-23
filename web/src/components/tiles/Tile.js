@@ -2,6 +2,7 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 import { Link } from 'preact-router/match';
@@ -98,10 +99,13 @@ const SelectedTextWithStrongs = ({ classes, verse, doShowRelated, selectedWord }
     : data.filter(x => !!x.t.trim()).map(segment => (
             <span class={segment.s === selectedWord ? style.selectedWord : ''}>{segment.t.trim()}&ensp;</span>));
   const childClasses = selected || doExplodeVerseSegments ? [style.tileStrongs, style.tileText] : [style.tileText];
+  const verseLink = `/v/${id}/${serialize(verse)}`
   return ( 
     <div class={classes.join(' ')}>
       <div class={style.tileReference}>
-        <ResponsiveReference reference={reference} />
+        { selected ? <ResponsiveReference reference={reference} /> : (
+          <Button size="small" href={verseLink}><ArrowBackIcon /><ResponsiveReference reference={reference} /></Button>
+        )}
       </div>
       <div class={childClasses.join(' ')}>
         <div>{ verseTextComponent }</div>
@@ -117,8 +121,10 @@ const SelectedTextWithStrongs = ({ classes, verse, doShowRelated, selectedWord }
 
 const TextWithStrongs = ({ classes, verse, selectedWord }) => {
   const { type, data, reference, related, id, selected } = verse;
+  const wordLink = `/word/${selectedWord}/${serialize(verse)}`;
+  const verseLink = `/v/${id}/${serialize(verse)}`
   return (
-    <Link class={classes.join(' ')} href={`/v/${id}/${serialize(verse)}`}>
+    <Link class={classes.join(' ')} href={selectedWord ? wordLink : verseLink}>
       <div class={style.tileReference}><ResponsiveReference reference={reference}/></div>
       <div class={style.tileText}>
         {data.map(segment => (

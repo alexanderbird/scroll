@@ -2,6 +2,7 @@ import { h } from 'preact';
 import { jump } from 'scroll-core';
 import { useState } from 'preact/hooks';
 
+import IosShareIcon from '@mui/icons-material/IosShare';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import UndoIcon from '@mui/icons-material/Undo';
@@ -13,6 +14,7 @@ import Snackbar from '@mui/material/Snackbar';
 
 import { Tiles } from '../components/tiles';
 import { Page } from '../components/page';
+import { ShareButton } from '../components/share';
 import { useReadingList } from '../hooks/useReadingList';
 
 const EmptyReadingListBlurb = () => (
@@ -31,11 +33,18 @@ const ReadingList = ({ query: initialQuery }) => {
     setReadingList(emptiedItems);
     setEmptiedItems(null);
   }
+  const readingListText = readingList
+    .map(x => `${x.reference} — ${x.data.slice(0, 3).map(d => d.t.trim()).join(' ')}...`)
+    .join('\n');
+  console.log(readingListText);
   return (
     <Page title={ isEmpty ? 'Reading List (empty)' : 'Reading List'}>
       { isEmpty ? <EmptyReadingListBlurb /> : (<>
-        <Stack direction='row' justifyContent='center'>
-          <Button onClick={emptyReadingList} ><DeleteIcon/>Empty reading list</Button>
+        <Stack direction='row' sx={{ justifyContent: 'flex-end' }}>
+          <ShareButton text={readingListText}>{onShare => (
+            <Button size="small" fullWidth={true} onClick={onShare}><IosShareIcon/>Export</Button>
+          )}</ShareButton>
+          <Button onClick={emptyReadingList} ><DeleteIcon/>Clear</Button>
         </Stack>
         <Tiles items={readingList} />
       </>)}

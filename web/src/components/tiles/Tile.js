@@ -2,9 +2,7 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
-import OfflineShareIcon from '@mui/icons-material/OfflineShare';
 import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { Link } from 'preact-router/match';
 import style from './style.css';
@@ -104,7 +102,6 @@ const SelectedTextWithStrongs = ({ classes, verse, doShowRelated, selectedWord }
     <div class={classes.join(' ')}>
       <div class={style.tileReference}>
         <ResponsiveReference reference={reference} />
-        <SaveButton id={id}/>
       </div>
       <div class={childClasses.join(' ')}>
         <div>{ verseTextComponent }</div>
@@ -132,38 +129,6 @@ const TextWithStrongs = ({ classes, verse, selectedWord }) => {
   );
 }
 
-const SaveButton = ({ id }) => {
-  const [notification, setNotification] = useState(false);
-  const shareGesture = () => {
-    const shareUrl = `https://share.scrollbible.app/${id}`;
-    if (navigator.share) {
-      navigator.share({ url: shareUrl });
-    } else {
-      navigator.clipboard.writeText(shareUrl).then(() => {
-        setNotification({ severity: 'success', message: 'Copied URL to clipboard' });
-      }).catch(e => {
-        console.error(e);
-        setNotification({ severity: 'warning', message: 'There was a problem copying the URL to the clipboard' });
-      });
-    }
-  };
-  return (
-    <>
-      <span class={style.tileReferenceSaveButton}>
-        <Button size="small" fullWidth={true} onClick={shareGesture}>
-          <span>save</span>
-          <OfflineShareIcon />
-        </Button>
-      </span>
-      <Snackbar open={!!notification} autoHideDuration={2000} onClose={() => setNotification(false)}>
-        <Alert severity={notification?.severity} variant='outlined' sx={{ bgcolor: 'background.paper' }}>
-          { notification?.message }
-        </Alert>
-      </Snackbar>
-    </>
-  );
-}
-  
 const ResponsiveReference = ({ reference }) => {
   const referencePattern = /^(.*) (\d+:\d+)$/;
   try {

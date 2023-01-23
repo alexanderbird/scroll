@@ -30,7 +30,7 @@ const Related = ({ id, content }) => {
     ...relatedVerses
   ];
   return (
-    <Page title={`Verses related to ${verse.reference}`}>
+    <Page title={`related to ${verse.reference}`}>
       <Tiles selectedWord={id} items={items} />
       { isLoadingRelatedVerses ? <Loading /> : null }
       { !canLoadMoreRelatedVerses ? null : (

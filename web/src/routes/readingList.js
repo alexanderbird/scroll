@@ -41,7 +41,7 @@ const ReadingList = ({ setPageTitle }) => {
   const readingListText = readingList
     .map(x => `${x.reference} — ${x.data.slice(0, 3).map(d => d.t.trim()).join(' ')}...`)
     .join('\n');
-  setPageTitle(isEmpty ? 'Reading List (empty)' : 'Reading List');
+  setPageTitle(isEmpty ? 'Reading List (empty)' : `Reading List (${readingList?.length} verse${readingList?.length === 1 ? '' : 's'})`);
   return (
     <>
       { isEmpty ? <EmptyReadingListBlurb /> : (<>

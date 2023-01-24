@@ -13,6 +13,9 @@ const ThemeCssVariableProvider = styled('div')(({ theme }) => ({
   '--color-secondary-text': theme.palette.secondary.contrastText,
   '--color-light-gray': theme.palette.grey[600],
   '--color-dark-gray': theme.palette.grey[200],
+  '--theme-spacing-1': theme.spacing(1),
+  '--theme-spacing-2': theme.spacing(2),
+  '--theme-spacing-3': theme.spacing(3),
   height: '100%',
 }));
 

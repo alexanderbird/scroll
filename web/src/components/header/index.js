@@ -134,6 +134,9 @@ const Header = ({ title }) => {
           <MenuItem onClick={handleClose}>
             <Link href="/about/feedback" sx={{ textDecoration: 'none' }}>Feedback</Link>
           </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link href="/about/install" sx={{ textDecoration: 'none' }}>Install Mobile App</Link>
+          </MenuItem>
         </Menu>
       </StyledToolbar>
     </AppBar>

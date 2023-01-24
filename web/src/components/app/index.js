@@ -10,6 +10,7 @@ import { Page } from '../../components/page';
 import Home from '../../routes/home';
 import License from '../../routes/license';
 import Feedback from '../../routes/feedback';
+import Install from '../../routes/install';
 import Verse from '../../routes/verse';
 import Related from '../../routes/related';
 import Word from '../../routes/word';
@@ -26,6 +27,7 @@ const App = () => {
             <Home        path="/"                        setPageTitle={setPageTitle} />
             <License     path="/about/license"           setPageTitle={setPageTitle} />
             <Feedback    path="/about/feedback"          setPageTitle={setPageTitle} />
+            <Install     path="/about/install"           setPageTitle={setPageTitle} />
             <Verse       path="/v/:id/:content?"         setPageTitle={setPageTitle} />
             <Related     path="/related/:id/:content"    setPageTitle={setPageTitle} />
             <Word        path="/word/:id/:verseContent?" setPageTitle={setPageTitle} />

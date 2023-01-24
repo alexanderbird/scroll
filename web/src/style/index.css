@@ -12,10 +12,6 @@ html, body {
   --main-width: 1000px;
 }
 
-h3 {
-  text-align: center;
-}
-
 * {
   box-sizing: border-box;
 }

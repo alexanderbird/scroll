@@ -24,7 +24,7 @@ const Verse = ({ id, content, setPageTitle }) => {
   const [ nextVerses, setNextVerses ] = useState([]);
   const client = buildClient({ timeProvider: defaultTimeProvider, httpGet: wrapFetch(fetch), log: console.info });
   const thisVerseIsPresent = thisVerse && !thisVerse.isMissing;
-  const [, addToReadingList] = useReadingList();
+  const [, { addToReadingList }] = useReadingList();
 
   useEffect(() => {
     setThisVerse(content ? deserialize(content) : null);

@@ -8,7 +8,7 @@ import { Link } from 'preact-router/match';
 import style from './style.css';
 import { serialize } from '../../data-transformations/verse';
 
-export const Tile = ({ selectedWord, verse, doShowRelated }) => {
+export const Tile = ({ selectedWord, verse, doShowRelated, actions }) => {
   const { type, data, reference, related, id, selected } = verse;
   const classes = [style.tile];
   if (verse.selected) {
@@ -17,7 +17,7 @@ export const Tile = ({ selectedWord, verse, doShowRelated }) => {
   if (type === "TEXT_WITH_STRONGS") {
     return selected || verse.doExplodeVerseSegments
       ? <SelectedTextWithStrongs verse={verse} classes={classes} doShowRelated={doShowRelated} selectedWord={selectedWord} />
-      : <TextWithStrongs verse={verse} classes={classes} selectedWord={selectedWord}/>
+      : <TextWithStrongs verse={verse} classes={classes} selectedWord={selectedWord} actions={actions}/>
   }
   if (type === "ERROR") {
     return <Alert severity="error">{ data }</Alert>
@@ -115,17 +115,20 @@ const SelectedTextWithStrongs = ({ classes, verse, doShowRelated, selectedWord }
   );
 }
 
-const TextWithStrongs = ({ classes, verse, selectedWord }) => {
+const TextWithStrongs = ({ classes, verse, selectedWord, actions }) => {
   const { type, data, reference, related, id, selected } = verse;
   return (
-    <Link class={classes.join(' ')} href={`/v/${id}/${serialize(verse)}`}>
-      <div class={style.tileReference}><ResponsiveReference reference={reference}/></div>
-      <div class={style.tileText}>
+    <div class={classes.join(' ')}>
+      <Link class={style.tileReference} href={`/v/${id}/${serialize(verse)}`}>
+        <ResponsiveReference reference={reference}/>
+      </Link>
+      <Link class={style.tileText} href={`/v/${id}/${serialize(verse)}`}>
         {data.map(segment => (
           <span class={segment.s === selectedWord ? style.selectedWord : ''}>{segment.t.trim()} </span>
         ))}
-      </div>
-    </Link>
+      </Link>
+      { actions ? <div class={style.tileActions}>{actions(id)}</div> : null }
+    </div>
   );
 }
 

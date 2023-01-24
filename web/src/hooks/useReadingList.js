@@ -13,6 +13,11 @@ export const useReadingList = () => {
     });
     setReadingList(Object.values(newItems));
   }
+  const removeFromReadingList = id => {
+    const newList = readingList.filter(x => x.id !== id);
+    setReadingList(newList);
+  }
   const clearReadingList = () => setReadingList([]);
-  return [readingList, addToReadingList, clearReadingList, setReadingList];
+  const actions = { addToReadingList, clearReadingList, setReadingList, removeFromReadingList };
+  return [readingList, actions];
 }

@@ -22,11 +22,10 @@
 }
 
 .tile.tileSelected {
-  --tile-selected-padding: 10px;
   --tile-selected-border: 2px;
   font-weight: bold;
-  border: var(--tile-selected-border) solid var(--color-secondary-light);
-  padding: var(--tile-selected-padding);
+  border: var(--tile-selected-border) solid var(--color-secondary-dark);
+  padding: 0;
   margin-bottom: 5px;
   margin-top: 5px;
 }
@@ -69,7 +68,7 @@
 }
 
 .tile.tileSelected .tileReference {
-  min-width: calc(var(--tile-reference-width) - var(--tile-selected-border) - var(--tile-selected-padding));
+  min-width: calc(var(--tile-reference-width) - var(--tile-selected-border));
 }
 
 .tile.linkTile {

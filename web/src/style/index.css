@@ -9,7 +9,11 @@ html, body {
   color: #444;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --main-width: 1000px;
+  /* Aiming for 45-75 characters per body line 
+   * https://baymard.com/blog/line-length-readability
+   */
+  --main-width: 750px;
+  line-height: 1.5;
 }
 
 * {

@@ -32,7 +32,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   },
   '@media (min-width: 1000px)': {
     'h1': {
-      paddingLeft: 'calc(48px * 4)',
+      paddingLeft: 'calc(48px * 3)',
     },
   },
   '@media (max-width: 650px)': {

@@ -9,6 +9,9 @@
      - sessions per unit time
   - [maybe?] show metrics on the site (About > How It's Made) and include realtime
     estimated cost per month and per visit
+- availability
+  - retry once if there is an API error
+  - show something sensible if the API is offline
 - documentation
   - public relations
     - an About page that communicates purpose
@@ -30,10 +33,6 @@
        - Is there a mobile app?
           - include instructions about install PWA (Share > Add to home screen)
        - etc.
-- more pleasant to use than that other Bible app
-  - UX review from an expert
-  - maybe a better icon/colors/whatever
-  - maybe dark mode?
 
 ## Optional -- before I forget the context
 - maintainability refactor across all the code

@@ -3,6 +3,7 @@ import { jump, shortIdentifier } from 'scroll-core';
 import { useState } from 'preact/hooks';
 
 import IosShareIcon from '@mui/icons-material/IosShare';
+import LinkIcon from '@mui/icons-material/Link';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -39,12 +40,12 @@ const ReadingList = ({ setPageTitle }) => {
     setEmptiedItems(null);
   }
 
-  const shortLink = `/all/${readingList.map(x => shortIdentifier.compress(x.id)).join('')}`;
+  const shortLink = window.location.href.replace(window.location.pathname, '') + `/all/${readingList.map(x => shortIdentifier.compress(x.id)).join('')}`;
 
   const readingListText = readingList
     .map(x => `${x.reference} — ${x.data.slice(0, 3).map(d => d.t.trim()).join(' ')}...`)
     .join('\n')
-    + '\n' + window.location.href.replace(window.location.pathname, '') + shortLink + '\n';
+    + '\n' + shortLink + '\n';
   setPageTitle(isEmpty ? 'Reading List (empty)' : `Reading List (${readingList?.length} verse${readingList?.length === 1 ? '' : 's'})`);
   return (
     <>
@@ -55,6 +56,9 @@ const ReadingList = ({ setPageTitle }) => {
           </Button>
           <ShareButton text={readingListText}>{onShare => (
             <Button sx={{ color: 'var(--color-primary-light)', height: '100%' }} onClick={onShare}><IosShareIcon/>Export</Button>
+          )}</ShareButton>
+          <ShareButton text={shortLink}>{onShare => (
+            <Button sx={{ color: 'var(--color-primary-light)', height: '100%' }} onClick={onShare}><LinkIcon/>Link</Button>
           )}</ShareButton>
           <Button onClick={emptyReadingList} sx={{ color: 'var(--color-primary-light)' }}><DeleteIcon/>Clear</Button>
         </Stack>

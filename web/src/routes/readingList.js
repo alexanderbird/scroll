@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { jump } from 'scroll-core';
+import { jump, shortIdentifier } from 'scroll-core';
 import { useState } from 'preact/hooks';
 
 import IosShareIcon from '@mui/icons-material/IosShare';
@@ -38,9 +38,13 @@ const ReadingList = ({ setPageTitle }) => {
     setReadingList(emptiedItems);
     setEmptiedItems(null);
   }
+
+  const shortLink = `/all/${readingList.map(x => shortIdentifier.compress(x.id)).join('')}`;
+
   const readingListText = readingList
     .map(x => `${x.reference} — ${x.data.slice(0, 3).map(d => d.t.trim()).join(' ')}...`)
-    .join('\n');
+    .join('\n')
+    + '\n' + window.location.href.replace(window.location.pathname, '') + shortLink + '\n';
   setPageTitle(isEmpty ? 'Reading List (empty)' : `Reading List (${readingList?.length} verse${readingList?.length === 1 ? '' : 's'})`);
   return (
     <>

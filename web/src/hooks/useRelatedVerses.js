@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'preact/hooks';
+import { shortIdentifier } from 'scroll-core';
 
 export function useRelatedVerses({ client, ids }) {
 
@@ -43,8 +44,15 @@ export function useRelatedVerses({ client, ids }) {
   }
 }
 
+function splitIdString(ids) {
+  if (ids.match(/^[0-9]{2}-[0-9]{3}-[0-9]{3}(,[0-9]{2}-[0-9]{3}-[0-9]{3})*$/)) {
+    return Array.from(new Set(ids.split(",").filter(x => !!x)));
+  }
+  return Array.from(new Set(ids.match(/.{3}/g).map(shortIdentifier.expand)));
+}
+
 function splitIdsIntoPages(ids, pageSize) {
-  return Array.from(new Set(ids.split(",").filter(x => !!x)))
+  return splitIdString(ids)
     .reduce((pages, item, index) => { 
       const pageIndex = Math.floor(index/pageSize);
       pages[pageIndex] = pages[pageIndex] || [];

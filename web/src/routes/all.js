@@ -14,7 +14,6 @@ import { LicenseSummary } from '../components/license';
 import { useRelatedVerses } from '../hooks/useRelatedVerses';
 
 const All = ({ ids, setPageTitle }) => {
-  const verseIds = ids.match(/.{3}/g).map(shortIdentifier.expand).join(',');
   const client = buildClient({ timeProvider: defaultTimeProvider, httpGet: wrapFetch(fetch), log: console.info });
 
   const {
@@ -22,7 +21,7 @@ const All = ({ ids, setPageTitle }) => {
     relatedVerses,
     canLoadNextPage,
     loadNextPage
-  } = useRelatedVerses({ client, ids: verseIds });
+  } = useRelatedVerses({ client, ids });
 
   setPageTitle(`${ids.length / 3} verses`);
   return (

@@ -1,12 +1,13 @@
 import { h } from 'preact';
 
+import { FeedbackLink } from '../components/feedbackLink';
+
 const Feedback = ({ setPageTitle }) => {
   setPageTitle("App Feedback");
   return (
     <>
       <p>
-        You can contact Alex at <a
-        href="mailto:feedback@scrollbible.app">feedback@scrollbible.app</a> to
+        You can contact Alex at <FeedbackLink /> to
         give feedback about this app.
       </p>
 

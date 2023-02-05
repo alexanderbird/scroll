@@ -5,6 +5,7 @@ import { ThemeProvider } from "@mui/material";
 
 import { theme } from './theme';
 import { Page } from '../../components/page';
+import { ErrorBoundary } from '../../components/errorBoundary';
 
 // Code-splitting is automated for `routes` directory
 import Home from '../../routes/home';
@@ -22,7 +23,7 @@ const App = () => {
   const [ pageTitle, setPageTitle ] = useState('Scroll Bible');
   return (
     <div id='app-router'>
-      <ThemeProvider theme={theme} >
+      <ErrorBoundary><ThemeProvider theme={theme} >
         <Page title={pageTitle} >
           <Router>
             <Home        path="/"                        setPageTitle={setPageTitle} />
@@ -37,7 +38,7 @@ const App = () => {
             <ReadingList path="/readinglist"             setPageTitle={setPageTitle} />
           </Router>
         </Page>
-      </ThemeProvider>
+      </ThemeProvider></ErrorBoundary>
     </div>
   );
 }

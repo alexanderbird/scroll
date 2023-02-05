@@ -45,6 +45,7 @@ export function useRelatedVerses({ client, ids }) {
 }
 
 function splitIdString(ids) {
+  if (!ids) return [];
   if (ids.match(/^[0-9]{2}-[0-9]{3}-[0-9]{3}(,[0-9]{2}-[0-9]{3}-[0-9]{3})*$/)) {
     return Array.from(new Set(ids.split(",").filter(x => !!x)));
   }

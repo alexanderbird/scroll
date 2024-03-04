@@ -21,6 +21,11 @@ npm run build
 # test the production build locally
 npm run serve
 
+For API Access, browse from `http://scrollbible.localhost:8080`. You will need to
+add the following to your `/etc/hosts` file for this to work:
+
+    127.0.0.1  scrollbible.localhost
+
 # run tests with jest and enzyme
 npm run test
 ```

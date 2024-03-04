@@ -17,6 +17,7 @@ import Related from '../../routes/related';
 import Word from '../../routes/word';
 import All from '../../routes/all';
 import Jump from '../../routes/jump';
+import Search from '../../routes/search';
 import ReadingList from '../../routes/readingList';
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
             <Related     path="/related/:id/:content"    setPageTitle={setPageTitle} />
             <Word        path="/word/:id/:verseContent?" setPageTitle={setPageTitle} />
             <All         path="/all/:ids"                setPageTitle={setPageTitle} />
+            <Search      path="/search/:query?"          setPageTitle={setPageTitle} />
             <Jump        path="/jump/:query?"            setPageTitle={setPageTitle} />
             <ReadingList path="/readinglist"             setPageTitle={setPageTitle} />
           </Router>

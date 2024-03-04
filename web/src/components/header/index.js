@@ -13,6 +13,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import AirlineStopsIcon from '@mui/icons-material/AirlineStops';
+import SearchIcon from '@mui/icons-material/Search';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
@@ -37,7 +38,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   },
   '@media (max-width: 650px)': {
     display: 'grid',
-    gridTemplateColumns: '1fr auto auto auto auto',
+    gridTemplateColumns: '1fr auto auto auto auto auto',
     gridTemplateRows: 'auto auto',
     height: 'auto',
     'button:first-of-type': {
@@ -86,6 +87,14 @@ const Header = ({ title }) => {
           href="/jump"
           color="inherit" >
           <AirlineStopsIcon />
+        </IconButton>)}</Match>
+        <Match path="/search">{({ matches }) => (<IconButton
+          sx={{ backgroundColor: matches ? 'var(--color-primary-light)' : undefined }}
+          size="large"
+          aria-label="search for a verse"
+          href="/search"
+          color="inherit" >
+          <SearchIcon />
         </IconButton>)}</Match>
         <Match path="/readinglist">{({ matches }) => (<IconButton
           sx={{ backgroundColor: matches ? 'var(--color-primary-light)' : undefined }}

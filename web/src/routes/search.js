@@ -10,17 +10,21 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import SearchIcon from '@mui/icons-material/Search';
 import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { Tiles } from '../components/tiles';
 import { Loading } from '../components/loading';
+import { LearnMoreSection } from '../components/learnMore';
 import { useRelatedVerses } from '../hooks/useRelatedVerses';
 import { LicenseSummary } from '../components/license';
+import { FeedbackLink } from '../components/feedbackLink';
 
 const Search = ({ query: initialQuery, setPageTitle }) => {
   const [query, setQuery] = useState(initialQuery);
+  const [searchTokens, setSearchTokens] = useState([]);
   const client = buildClient({ timeProvider: defaultTimeProvider, httpGet: wrapFetch(fetch), log: console.info });
 
   const {
@@ -34,8 +38,9 @@ const Search = ({ query: initialQuery, setPageTitle }) => {
 
   const onQueryChange = query => {
     setQuery(query);
-    const searchResults = search(query);
-    setSearchResults(searchResults);
+    const { results, tokens } = search(query);
+    setSearchTokens(tokens);
+    setSearchResults(results);
   }
 
   const onInputChange = e => {
@@ -75,7 +80,7 @@ const Search = ({ query: initialQuery, setPageTitle }) => {
         <br/>
         { searchResults.length
           ? <ResultTiles />
-          : <Alert severity="error">No verses include every word in <em>{query}</em></Alert>
+          : <NoResultsNotice searchTokens={searchTokens} query={query} />
         }
       </div>
     </>
@@ -92,8 +97,7 @@ function wrapAsArray(oneOrMore) {
 function search(phrase) {
   const tokens = tokenizeForSearch(phrase);
   const hits = {};
-  console.log(tokens);
-  const matches = Object.values(tokens.flatMap(x => searchIndex[x]?.match(/.{1,3}/g) || [])
+  const results = Object.values(tokens.flatMap(x => searchIndex[x]?.match(/.{1,3}/g) || [])
     .reduce((all, one) => {
       all[one] = all[one] || { id: one, count: 0 };
       all[one].count += 1;
@@ -101,7 +105,108 @@ function search(phrase) {
     }, {}))
     .filter(x => x.count === tokens.length)
     .map(x => shortIdentifier.expand(x.id));
-  return matches;
+  return { tokens, results };
 }
+
+const EveryWordIsIgnoredNotice = ({ query }) => {
+  return (
+    <Alert severity="error">
+      <AlertTitle>
+        <b>Your search matches too many verses</b>. Try using words that are less common.
+      </AlertTitle>
+      <br/>
+      <LearnMoreSection title="Learn more">
+        <ToKeepSearchEfficient />
+
+        <p>
+          Your search for <u><em>{query}</em></u>, contains only ignored words
+          so there are no results to show.
+        </p>
+
+        <TryAWebSearch />
+      </LearnMoreSection>
+    </Alert>
+  );
+};
+
+const ToKeepSearchEfficient = () => (
+  <p>
+    To keep the search efficient, we ignore the most common words. Most
+    of the one hundred or so words that occur in more than 1000 verses are
+    excluded, like <em>the</em>, <em>an</em>, and <em>our</em>.
+  </p>
+);
+
+const TryAWebSearch = () => (
+  <p>
+    If these limitations keep you from finding the verse you are looking for,
+    you could try a web search through your favorite search engine. If you do
+    that, please consider sending a quick email to <FeedbackLink /> with what
+    you were searching for so we can make this app better (by updating this
+    search to handle your query).
+  </p>
+);
+
+const NoResultsNotice = ({ searchTokens, query }) => {
+  if (!searchTokens.length) {
+    return <EveryWordIsIgnoredNotice query={query} />;
+  }
+  return (
+    <Alert severity="error">
+      <AlertTitle>
+        <b>No verses match the word stems </b><TokenSummaryList tokens={searchTokens} />
+      </AlertTitle>
+      <br/>
+      <LearnMoreSection title="Learn more">
+        <p>
+          To keep search flexible, search terms are "stemmed" -- converted to
+          their simplest form.  For example, the words "trust", "trusted", and
+          "trusting" all have the stem "trust". Likewise, words "one", "first",
+          and "1" all have the stem "1".
+        </p>
+
+        <ToKeepSearchEfficient />
+
+        <p>
+          When you search for <u><em>{query}</em></u>, we convert that to
+          stems <TokenSummaryList tokens={searchTokens} />. No verses in this
+          translation contain <PluralizeStems count={searchTokens.length} />.
+        </p>
+
+        <TryAWebSearch />
+      </LearnMoreSection>
+    </Alert>
+  );
+};
+
+const PluralizeStems = ({ count }) => {
+  if (count === 1) {
+    return "that stem";
+  }
+  if (count === 2) {
+    return "both of those stems";
+  }
+  return "all of those stems";
+}
+
+
+const TokenSummaryList = ({ tokens }) => {
+  if (tokens.length === 0) {
+    return ''
+  }
+  if (tokens.length === 1) {
+    return <TokenSummary token={tokens[0]} />;
+  }
+  if (tokens.length === 2) {
+    return <span><TokenSummary token={tokens[0]}/> and <TokenSummary token={tokens[1]} /></span>;
+  }
+  const [lastToken, ...mostOfTheTokensButReversed] = tokens.reverse();
+  return (<span>
+    {mostOfTheTokensButReversed.reverse().map(x => (<span><TokenSummary key={x} token={x}/>, </span>))}
+    and <TokenSummary token={lastToken}/>
+  </span>);
+}
+
+const TokenSummary = ({ token }) => <em>{token}</em>
 
 export default Search;

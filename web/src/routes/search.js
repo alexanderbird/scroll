@@ -21,7 +21,6 @@ import { LicenseSummary } from '../components/license';
 
 const Search = ({ query: initialQuery, setPageTitle }) => {
   const [query, setQuery] = useState(initialQuery);
-  const attemptToSearch = query && query.length > 1;
   const client = buildClient({ timeProvider: defaultTimeProvider, httpGet: wrapFetch(fetch), log: console.info });
 
   const {
@@ -30,25 +29,39 @@ const Search = ({ query: initialQuery, setPageTitle }) => {
     canLoadNextPage: canLoadMoreRelatedVerses,
     loadNextPage: loadNextPageOfRelatedVerses,
     ids: searchResults,
-    setIds,
+    setIds: setSearchResults,
   } = useRelatedVerses({ client, ids: [] });
+
+  const onQueryChange = query => {
+    setQuery(query);
+    const searchResults = search(query);
+    setSearchResults(searchResults);
+  }
 
   const onInputChange = e => {
     const newQuery = e.target.value;
-    console.log({ newQuery });
     window.history.replaceState({}, window.location.title, '/search/' + encodeURIComponent(newQuery));
-    setQuery(newQuery);
+    onQueryChange(newQuery);
   };
+
+  useEffect(() => {
+    onQueryChange(initialQuery);
+  }, []);
 
   const debouncedOnInputChange = debounce(onInputChange, 1000);
 
-  useEffect(() => {
-    console.log({ query });
-    const searchResults = attemptToSearch ? search(query) : [];
-    setIds(searchResults);
-  }, [query]);
-
   setPageTitle("Search by keyword");
+  const ResultTiles = () => (
+    <>
+      <Tiles items={items} />
+      { isLoadingRelatedVerses ? <Loading /> : null }
+      { !canLoadMoreRelatedVerses ? null : (
+        <Stack direction='row' justifyContent='center'>
+          <Button onClick={loadNextPageOfRelatedVerses}><KeyboardDoubleArrowDownIcon/></Button>
+        </Stack>
+      ) }
+    </>
+  )
   return (
     <>
       <Input
@@ -60,18 +73,11 @@ const Search = ({ query: initialQuery, setPageTitle }) => {
         placeholder="words to search for"/>
       <div>
         <br/>
-        { attemptToSearch && !searchResults.length
-          ? <Alert severity="error">No verses match <em>{query}</em></Alert>
-          : null }
+        { searchResults.length
+          ? <ResultTiles />
+          : <Alert severity="error">No verses include every word in <em>{query}</em></Alert>
+        }
       </div>
-      <Tiles items={items} />
-      { isLoadingRelatedVerses ? <Loading /> : null }
-      { !canLoadMoreRelatedVerses ? null : (
-        <Stack direction='row' justifyContent='center'>
-          <Button onClick={loadNextPageOfRelatedVerses}><KeyboardDoubleArrowDownIcon/></Button>
-        </Stack>
-      ) }
-      <LicenseSummary />
     </>
   );
 }

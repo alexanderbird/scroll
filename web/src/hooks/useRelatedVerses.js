@@ -3,7 +3,7 @@ import { shortIdentifier } from 'scroll-core';
 
 export function useRelatedVerses({ client, ids: initialIds }) {
   const [ids, setIds] = useState(initialIds);
-  const [remainingPages, setRemainingPages] = useState(splitIdsIntoPages(ids, 25));
+  const [remainingPages, setRemainingPages] = useState(splitIdsIntoPages(ids, 10));
   const [relatedVerses, setRelatedVerses] = useState([]);
   const [isLoading, setIsLoading] = useState();
 
@@ -30,7 +30,7 @@ export function useRelatedVerses({ client, ids: initialIds }) {
 
   useEffect(async () => {
     setRelatedVerses([]);
-    const [firstPage, ...newRemainingPages] = splitIdsIntoPages(ids, 25);
+    const [firstPage, ...newRemainingPages] = splitIdsIntoPages(ids, 10);
     if (!firstPage) { return; }
     setRemainingPages(newRemainingPages);
     await loadOnePage(firstPage);

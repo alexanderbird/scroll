@@ -78,7 +78,7 @@ const Search = ({ query: initialQuery, setPageTitle }) => {
         placeholder="words to search for"/>
       <div>
         <br/>
-        { searchResults.length
+        { !query.length ? null : searchResults.length
           ? <ResultTiles />
           : <NoResultsNotice searchTokens={searchTokens} query={query} />
         }

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'preact/hooks';
 import { shortIdentifier } from 'scroll-core';
 
-export function useRelatedVerses({ client, ids }) {
-
+export function useRelatedVerses({ client, ids: initialIds }) {
+  const [ids, setIds] = useState(initialIds);
   const [remainingPages, setRemainingPages] = useState(splitIdsIntoPages(ids, 25));
   const [relatedVerses, setRelatedVerses] = useState([]);
   const [isLoading, setIsLoading] = useState();
@@ -40,12 +40,17 @@ export function useRelatedVerses({ client, ids }) {
     isLoading,
     relatedVerses,
     canLoadNextPage: canLoadNextPage(),
-    loadNextPage
+    loadNextPage,
+    ids,
+    setIds,
   }
 }
 
 function splitIdString(ids) {
   if (!ids) return [];
+  if (Array.isArray(ids)) {
+    return ids;
+  }
   if (ids.match(/^[0-9]{2}-[0-9]{3}-[0-9]{3}(,[0-9]{2}-[0-9]{3}-[0-9]{3})*$/)) {
     return Array.from(new Set(ids.split(",").filter(x => !!x)));
   }

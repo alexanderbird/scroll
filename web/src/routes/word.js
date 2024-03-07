@@ -18,16 +18,20 @@ const Word = ({ id, verseContent, setPageTitle }) => {
   const [strongsEntry, setStrongsEntry] = useState({ data: "Strongs " + id + " (loading)", type: "TEXT", related: "" });
   const client = buildClient({ timeProvider: defaultTimeProvider, httpGet: wrapFetch(fetch), log: console.info });
 
-  const relatedIds = contextVerse
-    ? strongsEntry.related.split(',').filter(x => x !== contextVerse.id).join(',')
-    : strongsEntry.related;
-
   const {
     isLoading: isLoadingRelatedVerses,
     relatedVerses,
     canLoadNextPage: canLoadMoreRelatedVerses,
-    loadNextPage: loadNextPageOfRelatedVerses
-  } = useRelatedVerses({ client, ids: relatedIds });
+    loadNextPage: loadNextPageOfRelatedVerses,
+    setIds: setRelatedIds,
+  } = useRelatedVerses({ client, ids: [] });
+
+  useEffect(() => {
+    const relatedIds = contextVerse
+      ? strongsEntry.related.split(',').filter(x => x !== contextVerse.id).join(',')
+      : strongsEntry.related;
+    setRelatedIds(relatedIds);
+  }, [strongsEntry]);
 
   useEffect(async () => {
     const result = await client.getItem({ id, language: 'en', translation: 'strongs', document: 'reference' });

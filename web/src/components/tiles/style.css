@@ -197,14 +197,10 @@
   margin-top: 0 !important;
 }
 
-.tileReferenceAddToReadingListIcon {
-  svg:first-of-type { display: initial; }
-  svg:last-of-type { display: none; }
-
-.tileReferenceAddToReadingListIcon:hover {
-  svg:first-of-type { display: none; }
-  svg:last-of-type { display: initial; }
-}
+.tileReferenceAddToReadingListIcon svg:first-of-type { display: initial; }
+.tileReferenceAddToReadingListIcon svg:last-of-type { display: none; }
+.tileReferenceAddToReadingListIcon:hover svg:first-of-type { display: none; }
+.tileReferenceAddToReadingListIcon:hover svg:last-of-type { display: initial; }
 
 .readingListIcon {
   position: absolute;

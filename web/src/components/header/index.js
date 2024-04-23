@@ -72,11 +72,11 @@ const Header = ({ title }) => {
         <Typography variant="h1" component="h1" sx={{ flexGrow: 1, fontSize: '24px' }}>
           { title }
         </Typography>
-        <Match path="/">{({ matches }) => (<IconButton
+        <Match path="/random">{({ matches }) => (<IconButton
           sx={{ backgroundColor: matches ? 'var(--color-primary-light)' : undefined }}
           size="large"
-          aria-label="home page verse list"
-          href="/"
+          aria-label="random verse list"
+          href="/random"
           color="inherit" >
           <RandomIcon />
         </IconButton>)}</Match>

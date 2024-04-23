@@ -37,7 +37,7 @@ const Random = ({ setPageTitle }) => {
       setIsLoadingNextVerses(false);
   };
 
-  setPageTitle('Scroll Bible');
+  setPageTitle('Shuffle');
   return (
     <>
       <Tiles items={verses} />

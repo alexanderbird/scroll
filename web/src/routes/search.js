@@ -55,7 +55,7 @@ const Search = ({ query: initialQuery, setPageTitle }) => {
 
   const debouncedOnInputChange = debounce(onInputChange, 1000);
 
-  setPageTitle("Search by keyword");
+  setPageTitle("Search by Keyword");
   const ResultTiles = () => (
     <>
       <Tiles items={items} />

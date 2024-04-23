@@ -9,6 +9,7 @@ import { ErrorBoundary } from '../../components/errorBoundary';
 
 // Code-splitting is automated for `routes` directory
 import Random from '../../routes/random';
+import Home from '../../routes/home';
 import License from '../../routes/license';
 import Feedback from '../../routes/feedback';
 import Install from '../../routes/install';
@@ -27,7 +28,8 @@ const App = () => {
       <ErrorBoundary><ThemeProvider theme={theme} >
         <Page title={pageTitle} >
           <Router>
-            <Random      path="/"                        setPageTitle={setPageTitle} />
+            <Home        path="/"                        setPageTitle={setPageTitle} />
+            <Random      path="/random"                  setPageTitle={setPageTitle} />
             <License     path="/about/license"           setPageTitle={setPageTitle} />
             <Feedback    path="/about/feedback"          setPageTitle={setPageTitle} />
             <Install     path="/about/install"           setPageTitle={setPageTitle} />

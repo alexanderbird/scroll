@@ -184,3 +184,28 @@
     flex-direction: row;
   }
 }
+
+.tileReference {
+  position: relative;
+}
+
+.tileReferenceAddToReadingList {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  margin-left: -10px !important;
+  margin-top: 0 !important;
+  .tileReferenceAddToReadingListIcon {
+    svg:first-of-type { display: initial; }
+    svg:last-of-type { display: none; }
+    &:hover {
+      svg:first-of-type { display: none; }
+      svg:last-of-type { display: initial; }
+    }
+  }
+}
+.readingListIcon {
+  position: absolute;
+  left: 0;
+  top: 0;
+}

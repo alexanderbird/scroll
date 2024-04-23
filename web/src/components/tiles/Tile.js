@@ -2,7 +2,13 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
+import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkRemoveOutlinedIcon from '@mui/icons-material/BookmarkRemoveOutlined';
+import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined';
+import IconButton from '@mui/material/IconButton';
+import { useReadingList } from '../../hooks/useReadingList';
 import Alert from '@mui/material/Alert';
 import { Link } from 'preact-router/match';
 import style from './style.css';
@@ -86,6 +92,35 @@ const StrongsDerivation = ({ transliteration, derivation, contextVerse, label}) 
   );
 }
 
+const AddToReadingListButton = ({ verse }) => {
+  const [, { isInReadingList, addToReadingList, removeFromReadingList }] = useReadingList();
+  const thisVerseIsInTheReadingList = isInReadingList(verse);
+  return (
+    <div class={style.tileReferenceAddToReadingList}>
+      <IconButton
+        size="small"
+        aria-label="add to reading list"
+        onClick={() => thisVerseIsInTheReadingList ? removeFromReadingList(verse.id) : addToReadingList(verse)}
+        color="inherit"
+        >
+        { thisVerseIsInTheReadingList
+          ? <div class={style.tileReferenceAddToReadingListIcon}><BookmarkIcon /><BookmarkRemoveOutlinedIcon/></div>
+          : <BookmarkAddOutlinedIcon />
+        }
+      </IconButton>
+    </div>
+   );
+}
+
+const ReadingListIcon = ({ verse }) => {
+  const [, { isInReadingList }] = useReadingList();
+  const thisVerseIsInTheReadingList = isInReadingList(verse);
+  if (thisVerseIsInTheReadingList) {
+    return <div class={style.readingListIcon}><BookmarkIcon fontSize="small"/></div>
+  }
+  return null;
+}
+
 const SelectedTextWithStrongs = ({ classes, verse, doShowRelated, selectedWord }) => {
   const { type, data, reference, related, id, selected, doExplodeVerseSegments } = verse;
   const countOfRelated = related.split(",").filter(x => !!x).length;
@@ -101,6 +136,7 @@ const SelectedTextWithStrongs = ({ classes, verse, doShowRelated, selectedWord }
   return ( 
     <div class={classes.join(' ')}>
       <div class={style.tileReference}>
+        <AddToReadingListButton verse={verse}/>
         <ResponsiveReference reference={reference} />
       </div>
       <div class={childClasses.join(' ')}>
@@ -120,6 +156,7 @@ const TextWithStrongs = ({ classes, verse, selectedWord, actions }) => {
   return (
     <div class={classes.join(' ')}>
       <Link class={style.tileReference} href={`/v/${id}/${serialize(verse)}`}>
+        <ReadingListIcon verse={verse}/>
         <ResponsiveReference reference={reference}/>
       </Link>
       <Link class={style.tileText} href={`/v/${id}/${serialize(verse)}`}>

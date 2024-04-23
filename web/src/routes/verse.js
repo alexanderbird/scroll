@@ -12,7 +12,6 @@ import { Tiles } from '../components/tiles';
 import { Loading } from '../components/loading';
 import { deserialize } from '../data-transformations/verse';
 import { LicenseSummary } from '../components/license';
-import { useReadingList } from '../hooks/useReadingList';
 
 const Verse = ({ id, content, setPageTitle }) => {
   const [ thisVerse, setThisVerse ] = useState(null);
@@ -24,7 +23,6 @@ const Verse = ({ id, content, setPageTitle }) => {
   const [ nextVerses, setNextVerses ] = useState([]);
   const client = buildClient({ timeProvider: defaultTimeProvider, httpGet: wrapFetch(fetch), log: console.info });
   const thisVerseIsPresent = thisVerse && !thisVerse.isMissing;
-  const [, { addToReadingList }] = useReadingList();
 
   useEffect(() => {
     setThisVerse(content ? deserialize(content) : null);
@@ -35,11 +33,6 @@ const Verse = ({ id, content, setPageTitle }) => {
     const result = await client.getItem({ id, language: 'en', translation: 'webp', document: 'bible' });
     setThisVerse(result || { isMissing: true, type: 'ERROR', data: `Could not find ${reference(id)}` });
   }, [id, content]);
-
-  useEffect(() => {
-    if (!thisVerse || thisVerse.type === 'ERROR') return;
-    addToReadingList(thisVerse);
-  }, [thisVerse]);
 
   useEffect(async () => {
     setIsLoadingPreviousVerses(true);

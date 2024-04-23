@@ -8,7 +8,7 @@ import { Page } from '../../components/page';
 import { ErrorBoundary } from '../../components/errorBoundary';
 
 // Code-splitting is automated for `routes` directory
-import Home from '../../routes/home';
+import Random from '../../routes/random';
 import License from '../../routes/license';
 import Feedback from '../../routes/feedback';
 import Install from '../../routes/install';
@@ -27,7 +27,7 @@ const App = () => {
       <ErrorBoundary><ThemeProvider theme={theme} >
         <Page title={pageTitle} >
           <Router>
-            <Home        path="/"                        setPageTitle={setPageTitle} />
+            <Random      path="/"                        setPageTitle={setPageTitle} />
             <License     path="/about/license"           setPageTitle={setPageTitle} />
             <Feedback    path="/about/feedback"          setPageTitle={setPageTitle} />
             <Install     path="/about/install"           setPageTitle={setPageTitle} />

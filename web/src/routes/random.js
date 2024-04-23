@@ -11,7 +11,7 @@ import { Tiles } from './../components/tiles';
 import { Loading } from './../components/loading';
 import { LicenseSummary } from './../components/license';
 
-const Home = ({ setPageTitle }) => {
+const Random = ({ setPageTitle }) => {
   const [ verses, setVerses ] = useState([]);
   const [ isLoadingNextVerses, setIsLoadingNextVerses ] = useState(true);
   const [ nextPage, setNextPage ] = useState(null);
@@ -53,4 +53,4 @@ const Home = ({ setPageTitle }) => {
   );
 }
 
-export default Home;
+export default Random;

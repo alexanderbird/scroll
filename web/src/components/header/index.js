@@ -22,6 +22,7 @@ import Badge from '@mui/material/Badge';
 import packageJson from '../../../package.json';
 import { useReadingList } from '../../hooks/useReadingList';
 import { RandomIcon } from '../../components/icon/random';
+import style from './style.css';
 
 const { readmeUrl } = packageJson.content;
 
@@ -135,16 +136,19 @@ const Header = ({ title }) => {
           onClose={handleClose}
           >
           <MenuItem onClick={handleClose}>
-            <Link href={readmeUrl} sx={{ textDecoration: 'none' }}>About</Link>
+            <Link href="/" sx={{ textDecoration: 'none', width: '100%' }}>Home</Link>
           </MenuItem>
           <MenuItem onClick={handleClose}>
-            <Link href="/about/license" sx={{ textDecoration: 'none' }}>License</Link>
+            <Link href={readmeUrl} sx={{ textDecoration: 'none', width: '100%' }}>About</Link>
           </MenuItem>
           <MenuItem onClick={handleClose}>
-            <Link href="/about/feedback" sx={{ textDecoration: 'none' }}>Feedback</Link>
+            <Link href="/about/license" sx={{ textDecoration: 'none', width: '100%' }}>License</Link>
           </MenuItem>
           <MenuItem onClick={handleClose}>
-            <Link href="/about/install" sx={{ textDecoration: 'none' }}>Install Mobile App</Link>
+            <Link href="/about/feedback" sx={{ textDecoration: 'none', width: '100%' }}>Feedback</Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link href="/about/install" sx={{ textDecoration: 'none', width: '100%' }}>Install Mobile App</Link>
           </MenuItem>
         </Menu>
       </StyledToolbar>

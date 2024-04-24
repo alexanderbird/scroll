@@ -1,0 +1,12 @@
+.bigButtonImg {
+  width: auto;
+  height: auto;
+  max-width: 100% !important;
+  max-height: 180px;
+}
+
+.bigButton {
+  margin: auto !important;
+  marginBottom: 4px;
+  max-width: 500px
+}

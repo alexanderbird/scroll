@@ -6,7 +6,8 @@
 }
 
 .bigButton {
-  margin: auto !important;
-  marginBottom: 4px;
-  max-width: 500px
+  display: block;
+  margin: auto;
+  margin-bottom: 4px;
+  max-width: 400px;
 }
